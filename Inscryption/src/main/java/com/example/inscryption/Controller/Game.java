@@ -117,13 +117,31 @@ public class Game {
     public void createCreatures(){
         //Creatures to be used in the game
         Card goblin = new Card(1, "Goboboblin", "Goblin", 2, 1, "   ", "   ");
-        Card HUNYBUNZ = new Card(6, "Beast", "Hunter", 0, 6, "   ", "   ");
-        Card Lizard = new Card(6, "Beast", "Hunter", 0, 6, "   ", "   ");
-        Card Darren = new Card(6, "Beast", "Hunter", 0, 6, "   ", "   ");
-        Card Zombie = new Card(6, "Beast", "Hunter", 0, 6, "   ", "   ");
+        Card HUNYBUNZ = new Card(4, "Beast", "Hunter", 0, 6, "   ", "   ");
+        Card lizard = new Card(1, "Beast", "Lizard", 1, 1, "   "/*Poison? */, "   ");
+        Card darren = new Card(6, "Beast", "Homeless", 0, 6, "   ", "   ");
+        Card zombie = new Card(1, "Beast", "Zombie", 1, 2, "   ", "   ");
 
         masterDeck.addCard(goblin);
         masterDeck.addCard(HUNYBUNZ);
+        masterDeck.addCard();
+        masterDeck.addCard();
+        masterDeck.addCard();
+        masterDeck.addCard();
+        masterDeck.addCard();
+        masterDeck.addCard();
+        masterDeck.addCard();
+        masterDeck.addCard();
+        masterDeck.addCard();
+        masterDeck.addCard();
+        masterDeck.addCard();
+        masterDeck.addCard();
+        masterDeck.addCard();
+        masterDeck.addCard();
+        masterDeck.addCard();
+        masterDeck.addCard();
+        masterDeck.addCard();
+        masterDeck.addCard();
 
     }
 
