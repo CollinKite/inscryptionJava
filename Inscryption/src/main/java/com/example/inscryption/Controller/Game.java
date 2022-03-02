@@ -47,8 +47,8 @@ public class Game {
     }
 
     public void initGame(){
-        Boolean gameIsRunning = true;
-        Boolean playerTurn = true;
+        boolean gameIsRunning = true;
+        boolean playerTurn = true;
         masterDeck.shuffle();
         while (playerHand.size() < 3){
             playerHand.add(masterDeck.drawCard());
@@ -120,28 +120,42 @@ public class Game {
         Card HUNYBUNZ = new Card(4, "Beast", "Hunter", 0, 6, "   ", "   ");
         Card lizard = new Card(1, "Beast", "Lizard", 1, 1, "   "/*Poison? */, "   ");
         Card darren = new Card(6, "Beast", "Homeless", 0, 6, "   ", "   ");
-        Card zombie = new Card(1, "Beast", "Zombie", 1, 2, "   ", "   ");
+        Card hogRidah = new Card(1, "Beast", "Zombie", 1, 2, "   ", "   ");
+
+
+//my undead army is pogg and cute and i'm tired of the backlash
+        Card zombie = new Card(1, "Undead", "Zombie", 1, 2, "   ", "   ");
+        Card skeleton = new Card(2, "Undead", "Skeleton", 2, 1, "   ", "   ");
+        Card skeletonArcher = new Card(2, "Undead", "Skeleton Archer", 3, 1, "   ", "   ");
+                    //special needed
+        Card necromancer = new Card(4, "Unundead", "Necromancer", 0, 1, "   ", "   ");
+                    //could have flying or some ghost ability
+        Card ghost = new Card(3, "Undead", "Ghost", 2, 2, "   ", "   ");
+        Card wraith = new Card(4, "Undead", "Wraith", 4, 2, "   ", "   ");
+                    //maybe add that revenant resurrects after died, but like, weaker. or kills what killed it.
+        Card revenant = new Card(5, "Undead", "Revenant", 2, 5, "   ", "   ");
+        Card revenant = new Card(5, "Undead", "Revenant", 2, 5, "   ", "   ");
+        Card revenant = new Card(5, "Undead", "Revenant", 2, 5, "   ", "   ");
+        Card revenant = new Card(5, "Undead", "Revenant", 2, 5, "   ", "   ");
+
+        //adding my undead army - 10 creatures
+        masterDeck.addCard(zombie);
+        masterDeck.addCard(skeleton);
+        masterDeck.addCard(skeletonArcher);
+        masterDeck.addCard(necromancer);
+        masterDeck.addCard(ghost);
+        masterDeck.addCard(wraith);
+        masterDeck.addCard(revenant);
+        masterDeck.addCard();
+        masterDeck.addCard();
+        masterDeck.addCard();
+
 
         masterDeck.addCard(goblin);
         masterDeck.addCard(HUNYBUNZ);
         masterDeck.addCard();
         masterDeck.addCard();
-        masterDeck.addCard();
-        masterDeck.addCard();
-        masterDeck.addCard();
-        masterDeck.addCard();
-        masterDeck.addCard();
-        masterDeck.addCard();
-        masterDeck.addCard();
-        masterDeck.addCard();
-        masterDeck.addCard();
-        masterDeck.addCard();
-        masterDeck.addCard();
-        masterDeck.addCard();
-        masterDeck.addCard();
-        masterDeck.addCard();
-        masterDeck.addCard();
-        masterDeck.addCard();
+
 
     }
 

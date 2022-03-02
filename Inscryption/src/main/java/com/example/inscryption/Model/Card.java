@@ -6,8 +6,6 @@ public class Card {
     private int atk, hp;
     private String special1, special2;
 
-
-
     public Card(){}
 
     public Card(int cost, String type, String name, int atk, int hp, String special1, String special2) {
