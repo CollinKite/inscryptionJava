@@ -3,9 +3,12 @@ package com.example.inscryption.Controller;
 import com.example.inscryption.Model.Board;
 import com.example.inscryption.Model.Deck;
 import com.example.inscryption.Model.Card;
+import com.example.inscryption.Model.Player;
 import com.example.inscryption.View.Menu;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Random;
 
 //TODO
 /*
@@ -31,9 +34,9 @@ public class Game {
     Menu menu = new Menu();
     Deck masterDeck = new Deck();
     Board board = new Board();
+    Player player = new Player();
+    Player computer = new Player();
 
-    ArrayList<Card> playerHand = new ArrayList<>();
-    ArrayList<Card> computerHand = new ArrayList<>();
 
     public void start(){
         createCreatures();
@@ -52,21 +55,25 @@ public class Game {
         boolean gameIsRunning = true;
         boolean playerTurn = true;
         masterDeck.shuffle();
-        while (playerHand.size() < 3){
-            playerHand.add(masterDeck.drawCard());
+        while (player.getHand().size() < 3){
+            player.addCardToHand(masterDeck.drawCard());
         }
         while(gameIsRunning){
             if (playerTurn) {
-                playerHand.add(masterDeck.drawCard());
+                player.addCardToHand(masterDeck.drawCard());
+                player.setMana(player.getMana() + 1);
+                player.setCurrentMana(player.getMana());
                 takeTurn();
-                endTurn();
-                //show board at end
+                endTurn(1);
                 playerTurn = false;
             } else {
-                computerHand.add(masterDeck.drawCard());
+                computer.addCardToHand(masterDeck.drawCard());
+                computer.setMana(computer.getMana() + 1);
+                computer.setCurrentMana(computer.getMana());
+
+                compTurn();
                 //playCards();
-                endTurn();
-                //show board
+                endTurn(2);
                 playerTurn = true;
             }
         }
@@ -120,28 +127,35 @@ public class Game {
 //Beast creatures.
         Card goblin = new Card(1, "Beast", "Goblin", 2, 1, "   ", "   ");
         Card HUNYBUNZ = new Card(4, "Beast", "Hunter", 0, 6, "   ", "   ");
-        Card lizard = new Card(1, "Beast", "Lizard", 1, 1, "   "/*Poison? */, "   ");
-        Card darren = new Card(6, "Beast", "Homeless", 0, 6, "   ", "   ");
-        Card hogRidah = new Card(1, "Beast", "Zombie", 1, 2, "   ", "   ");
+        Card lizard = new Card(1, "Beast", "Lizard", 1, 1, "   ", "   ");
+        Card wolf = new Card(6, "Beast", "Wolf", 0, 6, "   ", "   ");
+        Card hogRider = new Card(1, "Centaur", "Hog Rider", 1, 2, "   ", "   ");
+        Card squirl = new Card(1, "Beast", "Squirl", 1, 2, "   ", "   ");
+        Card bear = new Card(1, "Beast", "Bear", 1, 2, "   ", "   ");
+        Card gremlin = new Card(1, "Beast", "Gremlin", 1, 2, "   ", "   ");
+        Card turtle = new Card(1, "Beast", "Turtle", 1, 2, "   ", "   ");
+        Card porcupine = new Card(1, "Beast", "Porcupine", 1, 2, "   ", "   ");
+        Card bird = new Card(1, "Beast", "Bird", 1, 2, "   ", "   ");
 
         masterDeck.addCard(goblin);
-        masterDeck.addCard(goblin);
-        masterDeck.addCard(goblin);
-        masterDeck.addCard(goblin);
-        masterDeck.addCard(goblin);
-        masterDeck.addCard(goblin);
-        masterDeck.addCard(goblin);
-        masterDeck.addCard(goblin);
-        masterDeck.addCard(goblin);
-        masterDeck.addCard(goblin);
+        masterDeck.addCard(HUNYBUNZ);
+        masterDeck.addCard(lizard);
+        masterDeck.addCard(wolf);
+        masterDeck.addCard(hogRider);
+        masterDeck.addCard(squirl);
+        masterDeck.addCard(bear);
+        masterDeck.addCard(gremlin);
+        masterDeck.addCard(turtle);
+        masterDeck.addCard(porcupine);
+        masterDeck.addCard(bird);
 
 
 //my undead army is pogg and cute and i'm tired of the backlash
         Card zombie = new Card(1, "Undead", "Zombie", 1, 2, "   ", "   ");
         Card skeleton = new Card(2, "Undead", "Skeleton", 2, 1, "   ", "   ");
-        Card skeletonArcher = new Card(2, "Undead", "Skeleton Archer", 3, 1, "   ", "   ");
+        Card skeletonArcher = new Card(2, "Undead", "Skel Arch", 3, 1, "   ", "   ");
                     //special needed
-        Card necromancer = new Card(4, "Unundead", "Necromancer", 0, 1, "   ", "   ");
+        Card necromancer = new Card(4, "Unundead", "Necromanca", 0, 1, "   ", "   ");
                     //could have flying or some ghost ability
         Card ghost = new Card(3, "Undead", "Ghost", 2, 2, "   ", "   ");
         Card wraith = new Card(4, "Undead", "Wraith", 4, 2, "   ", "   ");
@@ -164,27 +178,27 @@ public class Game {
 
 
 //unnatural horrors
-        Card angryBread = new Card(1, "Horror", "AngryBread", 1, 2, "   ", "   ");
-        Card noodleFarmMassacure = new Card(1, "Horror", "Noodle", 1, 2, "   ", "   ");
-        Card crookedPicture = new Card(1, "Horror", "Picture", 1, 2, "   ", "   ");
-        Card aDogThatLooksLikeACat = new Card(1, "Horror", "CatDog", 1, 2, "   ", "   ");
-        Card gearlessBike = new Card(1, "Horror", "Bike", 1, 2, "   ", "   ");
-        Card combedSpeghetti = new Card(1, "Horror", "Spahgetti", 1, 2, "   ", "   ");
+        Card mopMan = new Card(1, "Horror", "Mop Man", 1, 2, "   ", "   ");
+        Card bread = new Card(1, "Horror", "Bread?", 1, 2, "   ", "   ");
+        Card yourMom = new Card(1, "Horror", "YOUR MOM", 1, 2, "   ", "   ");
+        Card coldPockets = new Card(1, "Horror", "Cold Pockets", 1, 2, "   ", "   ");
+        Card poopernuf = new Card(1, "Horror", "Poopernuf", 1, 2, "   ", "   ");
+        Card spahgeghti = new Card(1, "Horror", "Spahgeghti", 1, 2, "   ", "   ");
         Card wetSocks = new Card(1, "Horror", "WetSocks", 1, 2, "   ", "   ");
         Card whiteOreos = new Card(1, "Horror", "WhiteOreos", 1, 2, "   ", "   ");
-        Card fingersThatAreTooLong = new Card(1, "Horror", "Fingers", 1, 2, "   ", "   ");
-        Card wipingYourButtSideways = new Card(1, "Horror", "ButtHole", 1, 2, "   ", "   ");
+        Card tingyFingy = new Card(1, "Horror", "TingyFingy", 1, 2, "   ", "   ");
+        Card tacobell = new Card(1, "Horror", "Taco Bell", 1, 2, "   ", "   ");
 
-        masterDeck.addCard(angryBread);
-        masterDeck.addCard(noodleFarmMassacure);
-        masterDeck.addCard(crookedPicture);
-        masterDeck.addCard(aDogThatLooksLikeACat);
-        masterDeck.addCard(gearlessBike);
-        masterDeck.addCard(combedSpeghetti);
+        masterDeck.addCard(mopMan);
+        masterDeck.addCard(bread);
+        masterDeck.addCard(yourMom);
+        masterDeck.addCard(coldPockets);
+        masterDeck.addCard(poopernuf);
+        masterDeck.addCard(spahgeghti);
         masterDeck.addCard(wetSocks);
         masterDeck.addCard(whiteOreos);
-        masterDeck.addCard(fingersThatAreTooLong);
-        masterDeck.addCard(wipingYourButtSideways);
+        masterDeck.addCard(tingyFingy);
+        masterDeck.addCard(tacobell);
 
 //Techno "creatures"? idk but they use tecknowlogy
 //        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
@@ -232,17 +246,30 @@ public class Game {
 //        masterDeck.addCard(robot);
 //        masterDeck.addCard(robot);
 
+    }
 
+    public void compTurn(){
+        boolean compTurn = true;
+        Random compRan = new Random();
+        while (!computer.getHand().isEmpty() && compTurn){
+            for (int i = 0; i < computer.getHand().size(); i++) {
+
+            }
+
+        }
     }
 
     public void takeTurn() {
         boolean turn = true;
-        while (!playerHand.isEmpty() && turn) {
+        while (!player.getHand().isEmpty() && turn) {
                 printBoard();
-                printCards(playerHand);
-                switch(menu.turnMenu()) {
+                printCards(player.getHand());
+                switch(menu.turnMenu(player, computer)) {
                     case 1:
                         playCard();
+                        break;
+                    case 4:
+                        menu.displayRules();
                         break;
                     case 5:
                         turn = false;
@@ -252,7 +279,14 @@ public class Game {
     }
 
     private void playCard() {
-
+        int cardToPlay = menu.getInt(1, player.getHand().size(), "Pick a card") - 1;
+        if (player.getHand().get(cardToPlay).getCost() <= player.getCurrentMana()) {
+            board.addToPlayerBoard(player.getHand().get(cardToPlay));
+            player.setCurrentMana(player.getCurrentMana() - player.getHand().get(cardToPlay).getCost());
+            player.removeCardFromHand(player.getHand().get(cardToPlay));
+        } else {
+            System.out.println("Not enough Mana");
+        }
     }
 
     private void printBoard() {
@@ -260,7 +294,23 @@ public class Game {
         printCards(board.getPlayerBoard());
     }
 
-    public void endTurn(){
-
+    public void endTurn(int turn){
+        if(turn == 1) {
+            for (int i = 0; i < board.getPlayerBoard().size(); i++) {
+                try {
+                    board.getComputerBoard().get(i).setHp(board.getComputerBoard().get(i).getHp() - board.getPlayerBoard().get(i).getAtk());
+                } catch (IndexOutOfBoundsException e) {
+                    computer.setHp(computer.getHp() - board.getPlayerBoard().get(i).getAtk());
+                }
+            }
+        } else if(turn == 2) {
+            for (int i = 0; i < board.getComputerBoard().size(); i++) {
+                try {
+                    board.getPlayerBoard().get(i).setHp(board.getPlayerBoard().get(i).getHp() - board.getComputerBoard().get(i).getAtk());
+                } catch (IndexOutOfBoundsException e) {
+                    player.setHp(player.getHp() - board.getComputerBoard().get(i).getAtk());
+                }
+            }
+        }
     }
 }

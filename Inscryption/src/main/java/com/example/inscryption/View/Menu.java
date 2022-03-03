@@ -1,6 +1,7 @@
 package com.example.inscryption.View;
 
 import com.example.inscryption.Model.Card;
+import com.example.inscryption.Model.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,23 +42,58 @@ return answer;
     }
 
 
-    public int turnMenu() {
-        List cardPos = new ArrayList<>();
+    public int turnMenu(Player player, Player computer) {
         String cardTop =    "┌──────────┐\n";
-        String firstLine =  "│1: Play   │\n";
-        String blankSpace = "│          │\n";
-        String specialLine ="│          │\n";
-        String secondLine = "│          │\n";
+        String firstLine =  "│1: Play   │  Your HP: " +player.getHp() + "\n";
+        String blankSpace = "│2:        │  Opp HP: " + computer.getHp() + "\n";
+        String specialLine ="│3:        │  Mana: " + getManaString(player) + "\n";
+        String secondLine = "│4: Rules  │\n";
         String thirdLine =  "│5: End    │\n";
         String cardBottom = "└──────────┘\n";
 
         System.out.println(cardTop + firstLine + blankSpace + specialLine + secondLine + thirdLine + cardBottom);
-        while (!getAnswerInt.hasNext("[15]")){
+        while (!getAnswerInt.hasNext("[145]")){
             System.out.println("Enter a valid option");
             getAnswerInt.next();
         }
 
         return getAnswerInt.nextInt();
 
+    }
+
+    public int getInt(int min, int max, String prompt) {
+        while(true) {
+            System.out.println(prompt);
+            int response = getAnswerInt.nextInt();
+            if(response >= min && response <= max) {
+                return response;
+            }
+        }
+    }
+
+    public void displayRules(){
+        //╔ ╗ ╚ ╝ ║ ═
+        String line1 = "╔═════════════════════════════════════════════╗\n";
+        String line2 = "║                                             ║\n";
+        String line3 = "║                                             ║\n";
+        String line4 = "║                                             ║\n";
+        String line5 = "║                                             ║\n";
+        String line6 = "║                                             ║\n";
+        String line7 = "║                                             ║\n";
+        String line8 = "║                                             ║\n";
+        String line9 = "║                                             ║\n";
+        String line10= "║                                             ║\n";
+        String line11= "║                                             ║\n";
+        String line12= "╚═════════════════════════════════════════════╝\n";
+
+        System.out.println(line1 + line2 + line3 + line4 + line5 + line6 + line7 + line8 + line9 + line10 + line11 + line12);
+    }
+
+    private String getManaString(Player player) {
+        String manaString = "";
+        for (int i = 0; i < player.getCurrentMana(); i++) {
+            manaString += "*";
+        }
+        return manaString;
     }
 }

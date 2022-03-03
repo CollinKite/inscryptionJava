@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Player {
     private ArrayList<Card> hand = new ArrayList<>();
-    private int hp, mana;
+    private int hp = 20, mana, currentMana;
     private String name;
     private Deck playerDeck = new Deck();
 
@@ -13,7 +13,7 @@ public class Player {
     public Player(int hp, int mana, String name) {
         setHp(hp);
         setMana(mana);
-
+        setName(name);
     }
 
     public void drawCard() {
@@ -48,5 +48,19 @@ public class Player {
         hand.remove(card);
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setCurrentMana(int currentMana) {
+        this.currentMana = currentMana;
+    }
+
+    public int getCurrentMana() {
+        return currentMana;
+    }
 }
