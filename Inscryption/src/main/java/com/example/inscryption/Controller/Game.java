@@ -115,12 +115,23 @@ public class Game {
 
 
     public void createCreatures(){
-        //Creatures to be used in the game
-        Card goblin = new Card(1, "Goboboblin", "Goblin", 2, 1, "   ", "   ");
+//Beast creatures.
+        Card goblin = new Card(1, "Beast", "Goblin", 2, 1, "   ", "   ");
         Card HUNYBUNZ = new Card(4, "Beast", "Hunter", 0, 6, "   ", "   ");
         Card lizard = new Card(1, "Beast", "Lizard", 1, 1, "   "/*Poison? */, "   ");
         Card darren = new Card(6, "Beast", "Homeless", 0, 6, "   ", "   ");
         Card hogRidah = new Card(1, "Beast", "Zombie", 1, 2, "   ", "   ");
+
+        masterDeck.addCard(goblin);
+        masterDeck.addCard(goblin);
+        masterDeck.addCard(goblin);
+        masterDeck.addCard(goblin);
+        masterDeck.addCard(goblin);
+        masterDeck.addCard(goblin);
+        masterDeck.addCard(goblin);
+        masterDeck.addCard(goblin);
+        masterDeck.addCard(goblin);
+        masterDeck.addCard(goblin);
 
 
 //my undead army is pogg and cute and i'm tired of the backlash
@@ -134,11 +145,10 @@ public class Game {
         Card wraith = new Card(4, "Undead", "Wraith", 4, 2, "   ", "   ");
                     //maybe add that revenant resurrects after died, but like, weaker. or kills what killed it.
         Card revenant = new Card(5, "Undead", "Revenant", 2, 5, "   ", "   ");
-        Card revenant = new Card(5, "Undead", "Revenant", 2, 5, "   ", "   ");
-        Card revenant = new Card(5, "Undead", "Revenant", 2, 5, "   ", "   ");
-        Card revenant = new Card(5, "Undead", "Revenant", 2, 5, "   ", "   ");
+        Card ghoul = new Card(5, "Undead", "Ghoul", 2, 5, "   ", "   ");
+        Card lich = new Card(5, "Undead", "Lich", 2, 5, "   ", "   ");
+        Card mummy = new Card(5, "Undead", "Mummy", 2, 5, "   ", "   ");
 
-        //adding my undead army - 10 creatures
         masterDeck.addCard(zombie);
         masterDeck.addCard(skeleton);
         masterDeck.addCard(skeletonArcher);
@@ -146,15 +156,79 @@ public class Game {
         masterDeck.addCard(ghost);
         masterDeck.addCard(wraith);
         masterDeck.addCard(revenant);
-        masterDeck.addCard();
-        masterDeck.addCard();
-        masterDeck.addCard();
+        masterDeck.addCard(ghoul);
+        masterDeck.addCard(lich);
+        masterDeck.addCard(mummy);
 
 
-        masterDeck.addCard(goblin);
-        masterDeck.addCard(HUNYBUNZ);
-        masterDeck.addCard();
-        masterDeck.addCard();
+//unnatural horrors
+        Card angryBread = new Card(1, "Horror", "Zombie", 1, 2, "   ", "   ");
+        Card noodleFarmMassacure = new Card(1, "Horror", "Zombie", 1, 2, "   ", "   ");
+        Card crookedPicture = new Card(1, "Horror", "Zombie", 1, 2, "   ", "   ");
+        Card aDogThatLooksLikeACat = new Card(1, "Horror", "Zombie", 1, 2, "   ", "   ");
+        Card gearlessBike = new Card(1, "Horror", "Zombie", 1, 2, "   ", "   ");
+        Card combedSpeghetti = new Card(1, "Horror", "Zombie", 1, 2, "   ", "   ");
+        Card wetSocks = new Card(1, "Horror", "Zombie", 1, 2, "   ", "   ");
+        Card whiteOreos = new Card(1, "Horror", "Zombie", 1, 2, "   ", "   ");
+        Card fingersThatAreTooLong = new Card(1, "Horror", "Zombie", 1, 2, "   ", "   ");
+        Card wipingYourButtSideways = new Card(1, "Horror", "Zombie", 1, 2, "   ", "   ");
+
+        masterDeck.addCard(angryBread);
+        masterDeck.addCard(noodleFarmMassacure);
+        masterDeck.addCard(crookedPicture);
+        masterDeck.addCard(aDogThatLooksLikeACat);
+        masterDeck.addCard(gearlessBike);
+        masterDeck.addCard(combedSpeghetti);
+        masterDeck.addCard(wetSocks);
+        masterDeck.addCard(whiteOreos);
+        masterDeck.addCard(fingersThatAreTooLong);
+        masterDeck.addCard(wipingYourButtSideways);
+
+//Techno "creatures"? idk but they use tecknowlogy
+        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
+        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
+        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
+        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
+        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
+        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
+        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
+        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
+        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
+        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
+
+        masterDeck.addCard(robot);
+        masterDeck.addCard(robot);
+        masterDeck.addCard(robot);
+        masterDeck.addCard(robot);
+        masterDeck.addCard(robot);
+        masterDeck.addCard(robot);
+        masterDeck.addCard(robot);
+        masterDeck.addCard(robot);
+        masterDeck.addCard(robot);
+        masterDeck.addCard(robot);
+
+//The classic magic deck... maybe not suck this time?
+        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
+        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
+        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
+        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
+        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
+        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
+        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
+        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
+        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
+        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
+
+        masterDeck.addCard(robot);
+        masterDeck.addCard(robot);
+        masterDeck.addCard(robot);
+        masterDeck.addCard(robot);
+        masterDeck.addCard(robot);
+        masterDeck.addCard(robot);
+        masterDeck.addCard(robot);
+        masterDeck.addCard(robot);
+        masterDeck.addCard(robot);
+        masterDeck.addCard(robot);
 
 
     }
