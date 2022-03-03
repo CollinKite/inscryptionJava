@@ -1,5 +1,6 @@
 package com.example.inscryption.Controller;
 
+import com.example.inscryption.Model.Board;
 import com.example.inscryption.Model.Deck;
 import com.example.inscryption.Model.Card;
 import com.example.inscryption.View.Menu;
@@ -29,6 +30,7 @@ deck size
 public class Game {
     Menu menu = new Menu();
     Deck masterDeck = new Deck();
+    Board board = new Board();
 
     ArrayList<Card> playerHand = new ArrayList<>();
     ArrayList<Card> computerHand = new ArrayList<>();
@@ -56,13 +58,13 @@ public class Game {
         while(gameIsRunning){
             if (playerTurn) {
                 playerHand.add(masterDeck.drawCard());
-                playCards();
+                takeTurn();
                 endTurn();
                 //show board at end
                 playerTurn = false;
             } else {
                 computerHand.add(masterDeck.drawCard());
-                playCards();
+                //playCards();
                 endTurn();
                 //show board
                 playerTurn = true;
@@ -162,16 +164,16 @@ public class Game {
 
 
 //unnatural horrors
-        Card angryBread = new Card(1, "Horror", "Zombie", 1, 2, "   ", "   ");
-        Card noodleFarmMassacure = new Card(1, "Horror", "Zombie", 1, 2, "   ", "   ");
-        Card crookedPicture = new Card(1, "Horror", "Zombie", 1, 2, "   ", "   ");
-        Card aDogThatLooksLikeACat = new Card(1, "Horror", "Zombie", 1, 2, "   ", "   ");
-        Card gearlessBike = new Card(1, "Horror", "Zombie", 1, 2, "   ", "   ");
-        Card combedSpeghetti = new Card(1, "Horror", "Zombie", 1, 2, "   ", "   ");
-        Card wetSocks = new Card(1, "Horror", "Zombie", 1, 2, "   ", "   ");
-        Card whiteOreos = new Card(1, "Horror", "Zombie", 1, 2, "   ", "   ");
-        Card fingersThatAreTooLong = new Card(1, "Horror", "Zombie", 1, 2, "   ", "   ");
-        Card wipingYourButtSideways = new Card(1, "Horror", "Zombie", 1, 2, "   ", "   ");
+        Card angryBread = new Card(1, "Horror", "AngryBread", 1, 2, "   ", "   ");
+        Card noodleFarmMassacure = new Card(1, "Horror", "Noodle", 1, 2, "   ", "   ");
+        Card crookedPicture = new Card(1, "Horror", "Picture", 1, 2, "   ", "   ");
+        Card aDogThatLooksLikeACat = new Card(1, "Horror", "CatDog", 1, 2, "   ", "   ");
+        Card gearlessBike = new Card(1, "Horror", "Bike", 1, 2, "   ", "   ");
+        Card combedSpeghetti = new Card(1, "Horror", "Spahgetti", 1, 2, "   ", "   ");
+        Card wetSocks = new Card(1, "Horror", "WetSocks", 1, 2, "   ", "   ");
+        Card whiteOreos = new Card(1, "Horror", "WhiteOreos", 1, 2, "   ", "   ");
+        Card fingersThatAreTooLong = new Card(1, "Horror", "Fingers", 1, 2, "   ", "   ");
+        Card wipingYourButtSideways = new Card(1, "Horror", "ButtHole", 1, 2, "   ", "   ");
 
         masterDeck.addCard(angryBread);
         masterDeck.addCard(noodleFarmMassacure);
@@ -185,61 +187,79 @@ public class Game {
         masterDeck.addCard(wipingYourButtSideways);
 
 //Techno "creatures"? idk but they use tecknowlogy
-        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
-        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
-        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
-        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
-        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
-        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
-        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
-        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
-        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
-        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
-
-        masterDeck.addCard(robot);
-        masterDeck.addCard(robot);
-        masterDeck.addCard(robot);
-        masterDeck.addCard(robot);
-        masterDeck.addCard(robot);
-        masterDeck.addCard(robot);
-        masterDeck.addCard(robot);
-        masterDeck.addCard(robot);
-        masterDeck.addCard(robot);
-        masterDeck.addCard(robot);
-
-//The classic magic deck... maybe not suck this time?
-        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
-        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
-        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
-        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
-        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
-        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
-        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
-        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
-        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
-        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
-
-        masterDeck.addCard(robot);
-        masterDeck.addCard(robot);
-        masterDeck.addCard(robot);
-        masterDeck.addCard(robot);
-        masterDeck.addCard(robot);
-        masterDeck.addCard(robot);
-        masterDeck.addCard(robot);
-        masterDeck.addCard(robot);
-        masterDeck.addCard(robot);
-        masterDeck.addCard(robot);
+//        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
+//        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
+//        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
+//        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
+//        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
+//        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
+//        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
+//        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
+//        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
+//        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
+//
+//        masterDeck.addCard(robot);
+//        masterDeck.addCard(robot);
+//        masterDeck.addCard(robot);
+//        masterDeck.addCard(robot);
+//        masterDeck.addCard(robot);
+//        masterDeck.addCard(robot);
+//        masterDeck.addCard(robot);
+//        masterDeck.addCard(robot);
+//        masterDeck.addCard(robot);
+//        masterDeck.addCard(robot);
+//
+////The classic magic deck... maybe not suck this time?
+//        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
+//        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
+//        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
+//        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
+//        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
+//        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
+//        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
+//        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
+//        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
+//        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
+//
+//        masterDeck.addCard(robot);
+//        masterDeck.addCard(robot);
+//        masterDeck.addCard(robot);
+//        masterDeck.addCard(robot);
+//        masterDeck.addCard(robot);
+//        masterDeck.addCard(robot);
+//        masterDeck.addCard(robot);
+//        masterDeck.addCard(robot);
+//        masterDeck.addCard(robot);
+//        masterDeck.addCard(robot);
 
 
     }
 
-    public void playCards() {
+    public void takeTurn() {
         boolean turn = true;
-        while (turn) {
+        while (!playerHand.isEmpty() && turn) {
+                printBoard();
                 printCards(playerHand);
+                switch(menu.turnMenu()) {
+                    case 1:
+                        playCard();
+                        break;
+                    case 5:
+                        turn = false;
+                        break;
+                }
             }
+    }
+
+    private void playCard() {
 
     }
+
+    private void printBoard() {
+        printCards(board.getComputerBoard());
+        printCards(board.getPlayerBoard());
+    }
+
     public void endTurn(){
 
     }

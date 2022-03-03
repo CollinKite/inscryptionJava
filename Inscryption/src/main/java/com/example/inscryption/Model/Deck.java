@@ -7,6 +7,7 @@ import java.util.Random;
 
 public class Deck {
     ArrayList<Card> deck = new ArrayList<>();
+    Random random = new Random();
 
     public ArrayList<Card> getDeck() {
         return deck;
@@ -32,7 +33,6 @@ public class Deck {
 
     public void shuffle() {
         ArrayList<Card> shuffledDeck = new ArrayList<>();
-        Random random = new Random();
         while(!deck.isEmpty()) {
             int index = random.nextInt(deck.size());
             shuffledDeck.add(deck.get(index));

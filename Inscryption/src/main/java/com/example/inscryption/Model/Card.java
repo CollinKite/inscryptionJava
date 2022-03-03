@@ -3,7 +3,7 @@ package com.example.inscryption.Model;
 public class Card {
     private int cost;
     private String type, name;
-    private int atk, hp;
+    private int atk, hp; //-900 will be used to represent a blank space for the purpose of spell cards
     private String special1, special2;
 
     public Card(){}
