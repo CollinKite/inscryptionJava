@@ -250,12 +250,12 @@ public class Game {
 
     public void compTurn(){
         boolean compTurn = true;
+        int compHandSize = computer.getHand().size();
         Random compRan = new Random();
+
         while (!computer.getHand().isEmpty() && compTurn){
-            for (int i = 0; i < computer.getHand().size(); i++) {
 
-            }
-
+            playCard(computer.getHand().get());
         }
     }
 
