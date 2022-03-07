@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectRootManager" version="2" project-jdk-name="17" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+  <component name="UnattendedHostPersistenceState">
+    <option name="openedFilesInfos">
+      <list>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="96" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/com/example/inscryption/Main.java" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="1873" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/com/example/inscryption/View/Menu.java" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="469" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/com/example/inscryption/Model/Player.java" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="11411" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/com/example/inscryption/Controller/Game.java" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="1190" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/com/example/inscryption/Model/Board.java" />
+        </OpenedFileInfo>
+      </list>
+    </option>
+  </component>
+</project>

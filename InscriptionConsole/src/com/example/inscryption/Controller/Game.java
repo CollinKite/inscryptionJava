@@ -40,7 +40,8 @@ public class Game {
 
     public void start(){
         createCreatures();
-
+        player.setHuman(true);
+        computer.setHuman(false);
         switch(menu.startMenu()) {
             case 1:
                 initGame();
@@ -252,10 +253,20 @@ public class Game {
         boolean compTurn = true;
         int compHandSize = computer.getHand().size();
         Random compRan = new Random();
+        boolean canPlay;
 
         while (!computer.getHand().isEmpty() && compTurn){
-
-//            playCard(computer.getHand().get());
+            canPlay = false;
+            for (int i = 0; i < computer.getHand().size(); i++) {
+                if(computer.getHand().get(i).getCost() <= computer.getCurrentMana()) {
+                    canPlay = true;
+                }
+            }
+            if(canPlay) {
+                playCard(computer, compRan.nextInt(compHandSize));
+            } else {
+                compTurn = false;
+            }
         }
     }
 
@@ -266,7 +277,7 @@ public class Game {
                 printCards(player.getHand());
                 switch(menu.turnMenu(player, computer)) {
                     case 1:
-                        playCard();
+                        playCard(player, menu.getInt(1, player.getHand().size(), "Pick a card") - 1);
                         break;
                     case 4:
                         menu.displayRules();
@@ -278,14 +289,19 @@ public class Game {
             }
     }
 
-    private void playCard() {
-        int cardToPlay = menu.getInt(1, player.getHand().size(), "Pick a card") - 1;
+    private void playCard(Player player, int cardToPlay) {
         if (player.getHand().get(cardToPlay).getCost() <= player.getCurrentMana()) {
-            board.addToPlayerBoard(player.getHand().get(cardToPlay));
+            if(player.isHuman()) {
+                board.addToPlayerBoard(player.getHand().get(cardToPlay));
+            } else {
+                board.addToComputerBoard(player.getHand().get(cardToPlay));
+            }
             player.setCurrentMana(player.getCurrentMana() - player.getHand().get(cardToPlay).getCost());
             player.removeCardFromHand(player.getHand().get(cardToPlay));
         } else {
-            System.out.println("Not enough Mana");
+            if(player.isHuman()) {
+                System.out.println("Not enough Mana");
+            }
         }
     }
 

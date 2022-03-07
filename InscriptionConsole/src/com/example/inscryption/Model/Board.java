@@ -1,5 +1,6 @@
 package com.example.inscryption.Model;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Board {
@@ -28,5 +29,20 @@ public class Board {
 
     public void removeFromComputerBoard(Card card) {
         computerBoard.remove(card);
+    }
+
+    public void removeDeadCards() {
+        ArrayList<Integer> indexes = new ArrayList<>();
+        for (int i = 0; i < playerBoard.size(); i++) {
+            if(playerBoard.get(i).getHp() <= 0) {
+                indexes.add(i);
+            }
+        }
+
+        if(!indexes.isEmpty()) {
+            for (int i = 0; i < indexes.size(); i++) {
+                playerBoard.remove(indexes.get(i));
+            }
+        }
     }
 }

@@ -7,13 +7,15 @@ public class Player {
     private int hp = 20, mana, currentMana;
     private String name;
     private Deck playerDeck = new Deck();
+    private boolean isHuman;
 
     public Player() {}
 
-    public Player(int hp, int mana, String name) {
+    public Player(int hp, int mana, String name, boolean isHuman) {
         setHp(hp);
         setMana(mana);
         setName(name);
+        setHuman(isHuman);
     }
 
     public void drawCard() {
@@ -62,5 +64,13 @@ public class Player {
 
     public int getCurrentMana() {
         return currentMana;
+    }
+
+    public void setHuman(boolean human) {
+        isHuman = human;
+    }
+
+    public boolean isHuman() {
+        return isHuman;
     }
 }
