@@ -96,4 +96,45 @@ return answer;
         }
         return manaString;
     }
+
+    public void printCards(ArrayList<Card> cards) {
+        //Prints cards next to each other line by line.
+
+        String CardTop = "";
+        String firstLine = "";
+        String blankSpace = "";
+        String specialLine = "";
+        String secondLine = "";
+        String thirdLine = "";
+        String cardBottom = "";
+        for (int i = 0; i < cards.size(); i++) {
+
+
+            CardTop += "┌──────────┐";
+            firstLine += "│" + cards.get(i).getName();
+            blankSpace += "│          │";
+            specialLine += "│" + cards.get(i).getSpecial1() + "   " + cards.get(i).getSpecial2() + " │";
+            secondLine += "│" + cards.get(i).getAtk() + "/" + cards.get(i).getHp() + "       │";
+            thirdLine += "│" + cards.get(i).getCost() + "         │";
+            cardBottom += "└──────────┘";
+
+            //╚══════╝
+
+
+            for (int j = 0; j < (10 - cards.get(i).getName().length()); j++) {
+                firstLine += " ";
+            }
+
+            firstLine += "│";
+        }
+        CardTop += "\n";
+        firstLine += "\n";
+        blankSpace += "\n";
+        specialLine += "\n";
+        secondLine += "\n";
+        thirdLine += "\n";
+
+
+        System.out.println(CardTop + firstLine + blankSpace + specialLine + secondLine + thirdLine + cardBottom);
+    }
 }

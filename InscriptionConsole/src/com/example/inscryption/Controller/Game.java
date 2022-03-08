@@ -80,52 +80,13 @@ public class Game {
         }
     }
 
-    public void printCards(ArrayList<Card> cards) {
-        //Prints cards next to each other line by line.
 
-        String CardTop = "";
-        String firstLine = "";
-        String blankSpace = "";
-        String specialLine = "";
-        String secondLine = "";
-        String thirdLine = "";
-        String cardBottom = "";
-        for (int i = 0; i < cards.size(); i++) {
-
-
-            CardTop += "┌──────────┐";
-            firstLine += "│" + cards.get(i).getName();
-            blankSpace += "│          │";
-            specialLine += "│" + cards.get(i).getSpecial1() + "   " + cards.get(i).getSpecial2() + " │";
-            secondLine += "│" + cards.get(i).getAtk() + "/" + cards.get(i).getHp() + "       │";
-            thirdLine += "│" + cards.get(i).getCost() + "         │";
-            cardBottom += "└──────────┘";
-
-            //╚══════╝
-
-
-            for (int j = 0; j < (10 - cards.get(i).getName().length()); j++) {
-                firstLine += " ";
-            }
-
-            firstLine += "│";
-        }
-        CardTop += "\n";
-        firstLine += "\n";
-        blankSpace += "\n";
-        specialLine += "\n";
-        secondLine += "\n";
-        thirdLine += "\n";
-
-
-        System.out.println(CardTop + firstLine + blankSpace + specialLine + secondLine + thirdLine + cardBottom);
-    }
 
 
 
 
     public void createCreatures(){
-//Beast creatures.
+        //Beast creatures.
         Card goblin = new Card(1, "Beast", "Goblin", 2, 1, "   ", "   ");
         Card HUNYBUNZ = new Card(4, "Beast", "Hunter", 0, 6, "   ", "   ");
         Card lizard = new Card(1, "Beast", "Lizard", 1, 1, "   ", "   ");
@@ -274,7 +235,7 @@ public class Game {
         boolean turn = true;
         while (!player.getHand().isEmpty() && turn) {
                 printBoard();
-                printCards(player.getHand());
+                menu.printCards(player.getHand());
                 switch(menu.turnMenu(player, computer)) {
                     case 1:
                         playCard(player, menu.getInt(1, player.getHand().size(), "Pick a card") - 1);
@@ -291,7 +252,7 @@ public class Game {
 
     private void playCard(Player player, int cardToPlay) {
         if (player.getHand().get(cardToPlay).getCost() <= player.getCurrentMana()) {
-            if(player.isHuman()) {
+            if (player.isHuman()) {
                 board.addToPlayerBoard(player.getHand().get(cardToPlay));
             } else {
                 board.addToComputerBoard(player.getHand().get(cardToPlay));
@@ -299,15 +260,15 @@ public class Game {
             player.setCurrentMana(player.getCurrentMana() - player.getHand().get(cardToPlay).getCost());
             player.removeCardFromHand(player.getHand().get(cardToPlay));
         } else {
-            if(player.isHuman()) {
+            if (player.isHuman()) {
                 System.out.println("Not enough Mana");
             }
         }
     }
 
     private void printBoard() {
-        printCards(board.getComputerBoard());
-        printCards(board.getPlayerBoard());
+        menu.printCards(board.getComputerBoard());
+        menu.printCards(board.getPlayerBoard());
     }
 
     public void endTurn(int turn){
@@ -328,5 +289,6 @@ public class Game {
                 }
             }
         }
+        board.removeDeadCards();
     }
 }
