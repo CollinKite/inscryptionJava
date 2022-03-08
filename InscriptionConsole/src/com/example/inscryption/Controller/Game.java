@@ -10,36 +10,18 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
-//TODO
-/*
-add creatures
-get board set up
-Blank card
-attacks
-player hp / enemy hp
-spells
-mana mechanics
-energy system -- maybe add more later.
-card specials + symbols
-winning/losing
-points? - in case we need persistent high score
-card packs? - if we have time and want to -- tied to persistent player deck
-turn order
-deck size
-?bosses with pre-built decks? -> levels?? -> Boss unique cards?
-
- */
-
 public class Game {
-    Menu menu = new Menu();
-    Deck masterDeck = new Deck();
-    Board board = new Board();
-    Player player = new Player();
-    Player computer = new Player();
+    private Menu menu = new Menu();
+    private Deck masterDeck = new Deck();
+    private Board board = new Board();
+    private Player player = new Player();
+    private Player computer = new Player();
 
 
     public void start(){
-        createCreatures();
+        if(masterDeck.getDeck().isEmpty()) {
+            createCreatures();
+        }
         player.setHuman(true);
         computer.setHuman(false);
         switch(menu.startMenu()) {
@@ -53,8 +35,7 @@ public class Game {
     }
 
     public void initGame(){
-        boolean gameIsRunning = true;
-        boolean playerTurn = true;
+        boolean gameIsRunning = true, playerTurn = true, playerWin = false, computerWin = false;
         masterDeck.shuffle();
         while (player.getHand().size() < 3){
             player.addCardToHand(masterDeck.drawCard());
@@ -66,24 +47,21 @@ public class Game {
                 player.setCurrentMana(player.getMana());
                 takeTurn();
                 endTurn(1);
+                playerWin = checkWin(computer);
                 playerTurn = false;
             } else {
                 computer.addCardToHand(masterDeck.drawCard());
                 computer.setMana(computer.getMana() + 1);
                 computer.setCurrentMana(computer.getMana());
-
                 compTurn();
-                //playCards();
                 endTurn(2);
+                computerWin = checkWin(player);
                 playerTurn = true;
             }
+            gameIsRunning = !playerWin && !computerWin;
         }
+        start();
     }
-
-
-
-
-
 
     public void createCreatures(){
         //Beast creatures.
@@ -162,52 +140,6 @@ public class Game {
         masterDeck.addCard(tingyFingy);
         masterDeck.addCard(tacobell);
 
-//Techno "creatures"? idk but they use tecknowlogy
-//        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
-//        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
-//        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
-//        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
-//        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
-//        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
-//        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
-//        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
-//        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
-//        Card robot = new Card(1, "Tech", "Zombie", 1, 2, "   ", "   ");
-//
-//        masterDeck.addCard(robot);
-//        masterDeck.addCard(robot);
-//        masterDeck.addCard(robot);
-//        masterDeck.addCard(robot);
-//        masterDeck.addCard(robot);
-//        masterDeck.addCard(robot);
-//        masterDeck.addCard(robot);
-//        masterDeck.addCard(robot);
-//        masterDeck.addCard(robot);
-//        masterDeck.addCard(robot);
-//
-////The classic magic deck... maybe not suck this time?
-//        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
-//        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
-//        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
-//        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
-//        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
-//        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
-//        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
-//        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
-//        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
-//        Card mage = new Card(1, "Magic", "Mage", 1, 2, "   ", "   ");
-//
-//        masterDeck.addCard(robot);
-//        masterDeck.addCard(robot);
-//        masterDeck.addCard(robot);
-//        masterDeck.addCard(robot);
-//        masterDeck.addCard(robot);
-//        masterDeck.addCard(robot);
-//        masterDeck.addCard(robot);
-//        masterDeck.addCard(robot);
-//        masterDeck.addCard(robot);
-//        masterDeck.addCard(robot);
-
     }
 
     public void compTurn(){
@@ -250,6 +182,11 @@ public class Game {
             }
     }
 
+    /**
+     *
+     * @param player
+     * @param cardToPlay
+     */
     private void playCard(Player player, int cardToPlay) {
         if (player.getHand().get(cardToPlay).getCost() <= player.getCurrentMana()) {
             if (player.isHuman()) {
@@ -269,6 +206,14 @@ public class Game {
     private void printBoard() {
         menu.printCards(board.getComputerBoard());
         menu.printCards(board.getPlayerBoard());
+    }
+
+    private boolean checkWin(Player player) {
+        if(player.getHp() <= 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void endTurn(int turn){

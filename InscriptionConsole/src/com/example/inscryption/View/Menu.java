@@ -11,6 +11,7 @@ public class Menu {
     Scanner getAnswerInt = new Scanner(System.in);
     int answer;
 
+    //Creates menu in a box
     public int startMenu() {
         List cardPos = new ArrayList<>();
         String cardTop =    "┌──────────┐";
@@ -36,16 +37,13 @@ while (!getAnswerInt.hasNext("[15]")){
 }
 answer = getAnswerInt.nextInt();
 return answer;
-        //╚══════╝
-
-
     }
 
-
+//turn menu, also in a box, nice right?
     public int turnMenu(Player player, Player computer) {
         String cardTop =    "┌──────────┐\n";
         String firstLine =  "│1: Play   │  Your HP: " +player.getHp() + "\n";
-        String blankSpace = "│2:        │  Opp HP: " + computer.getHp() + "\n";
+        String blankSpace = "│2:        │  Opponent HP: " + computer.getHp() + "\n";
         String specialLine ="│3:        │  Mana: " + getManaString(player) + "\n";
         String secondLine = "│4: Rules  │\n";
         String thirdLine =  "│5: End    │\n";
@@ -61,6 +59,13 @@ return answer;
 
     }
 
+    /**
+     *
+     * @param min lower bounds to validate
+     * @param max upper bounds to validate
+     * @param prompt asks user to input number
+     * @return returns validated input
+     */
     public int getInt(int min, int max, String prompt) {
         while(true) {
             System.out.println(prompt);
@@ -71,16 +76,17 @@ return answer;
         }
     }
 
+    //Displays rules. who'd of thought?
     public void displayRules(){
         //╔ ╗ ╚ ╝ ║ ═
         String line1 = "╔═════════════════════════════════════════════╗\n";
-        String line2 = "║                                             ║\n";
-        String line3 = "║                                             ║\n";
-        String line4 = "║                                             ║\n";
-        String line5 = "║                                             ║\n";
-        String line6 = "║                                             ║\n";
-        String line7 = "║                                             ║\n";
-        String line8 = "║                                             ║\n";
+        String line2 = "║ At the start of the turn, player draws card ║\n";
+        String line3 = "║ Playing a card costs mana                   ║\n";
+        String line4 = "║ Mana regenerates increasing by one /turn    ║\n";
+        String line5 = "║ Cards attack the opposing enemy's card      ║\n";
+        String line6 = "║ if no opposing card, player deals damage    ║\n";
+        String line7 = "║          directly to enemy's health         ║\n";
+        String line8 = "║ Player wins when enemy health is 0          ║\n";
         String line9 = "║                                             ║\n";
         String line10= "║                                             ║\n";
         String line11= "║                                             ║\n";

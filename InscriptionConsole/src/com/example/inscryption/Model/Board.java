@@ -1,6 +1,5 @@
 package com.example.inscryption.Model;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Board {
@@ -21,14 +20,6 @@ public class Board {
 
     public void addToComputerBoard(Card card) {
         computerBoard.add(card);
-    }
-
-    public void removeFromPlayerBoard(Card card) {
-        playerBoard.remove(card);
-    }
-
-    public void removeFromComputerBoard(Card card) {
-        computerBoard.remove(card);
     }
 
     public void removeDeadCards() {
