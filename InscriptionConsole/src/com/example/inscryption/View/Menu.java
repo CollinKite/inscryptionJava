@@ -109,7 +109,6 @@ return answer;
         String cardBottom = "";
         for (int i = 0; i < cards.size(); i++) {
 
-
             CardTop += "┌──────────┐";
             firstLine += "│" + cards.get(i).getName();
             blankSpace += "│          │";
@@ -119,7 +118,6 @@ return answer;
             cardBottom += "└──────────┘";
 
             //╚══════╝
-
 
             for (int j = 0; j < (10 - cards.get(i).getName().length()); j++) {
                 firstLine += " ";
@@ -133,7 +131,6 @@ return answer;
         specialLine += "\n";
         secondLine += "\n";
         thirdLine += "\n";
-
 
         System.out.println(CardTop + firstLine + blankSpace + specialLine + secondLine + thirdLine + cardBottom);
     }

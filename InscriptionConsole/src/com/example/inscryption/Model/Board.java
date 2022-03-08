@@ -38,10 +38,20 @@ public class Board {
                 indexes.add(i);
             }
         }
-
         if(!indexes.isEmpty()) {
             for (int i = 0; i < indexes.size(); i++) {
-                playerBoard.remove(indexes.get(i));
+                playerBoard.remove(indexes.get(i).intValue());
+            }
+        }
+        indexes = new ArrayList<>();
+        for (int i = 0; i < computerBoard.size(); i++) {
+            if(computerBoard.get(i).getHp() <= 0) {
+                indexes.add(i);
+            }
+        }
+        if(!indexes.isEmpty()) {
+            for (int i = 0; i < indexes.size(); i++) {
+                computerBoard.remove(indexes.get(i).intValue());
             }
         }
     }
