@@ -18,29 +18,76 @@ public class Game {
     private Player computer = new Player();
 
 
+    /**
+     * Initializes and starts game with appropriate methods
+     */
     public void start(){
-        if(masterDeck.getDeck().isEmpty()) {
-            createCreatures();
-        }
-        player.setHuman(true);
-        computer.setHuman(false);
-        switch(menu.startMenu()) {
-            case 1:
-                initGame();
-                break;
-            case 5:
-                System.out.println("Exit successful, this time...");
-                break;
+        boolean gaming = true;
+        while(gaming) {
+            if (masterDeck.getDeck().isEmpty()) {
+                createCreatures();
+            }
+            board = new Board();
+            player = new Player();
+            computer = new Player();
+            player.setHuman(true);
+            computer.setHuman(false);
+            switch (menu.startMenu()) {
+                case 1:
+                    initGame();
+                    break;
+                case 2:
+                    System.out.println("It is a period of civil war. Rebel spaceships, striking from a hidden base, have won their first victory against the evil Galactic Empire. During the battle, Rebel spies managed to steal secret plans to the Empire’s ultimate weapon, the DEATH STAR, an armoured space station with enough power to destroy an entire planet. \n" +
+                            "\n" +
+                            "Pursued by the Empire’s sinister agents, Princess Leia races home aboard her starship, custodian of the stolen plans that can save her people and restore freedom to the galaxy….");
+                    break;
+                case 3:
+                    System.out.println("Exit successful, this time...");
+                    gaming = false;
+                    break;
+            }
         }
     }
 
+    public void pray(){
+        Random ranPray = new Random();
+        int answer = ranPray.nextInt(2);
+        switch (answer){
+            case 0:
+                System.out.println("your prayers have been answered");
+                if(masterDeck.getDeck().isEmpty()) {
+                    createCreatures();
+                    masterDeck.shuffle();
+                }
+                player.addCardToHand(masterDeck.drawCard());
+                break;
+            case 1:
+                System.out.println("your prayers were unheard");
+                player.setHp(player.getHp() - 5);
+                checkWin(player);
+                break;
+        }
+
+    }
+
+    /**
+     * Sets Game Up
+     */
     public void initGame(){
         boolean gameIsRunning = true, playerTurn = true, playerWin = false, computerWin = false;
         masterDeck.shuffle();
         while (player.getHand().size() < 3){
+            if(masterDeck.getDeck().isEmpty()) {
+                createCreatures();
+                masterDeck.shuffle();
+            }
             player.addCardToHand(masterDeck.drawCard());
         }
         while(gameIsRunning){
+            if(masterDeck.getDeck().isEmpty()) {
+                createCreatures();
+                masterDeck.shuffle();
+            }
             if (playerTurn) {
                 player.addCardToHand(masterDeck.drawCard());
                 player.setMana(player.getMana() + 1);
@@ -60,9 +107,18 @@ public class Game {
             }
             gameIsRunning = !playerWin && !computerWin;
         }
-        start();
+        if(playerWin) {
+            //win
+            System.out.println("You don' defeatified your badguy!!");
+        } else {
+            //loss
+            System.out.println("You joined collin's dad (DEAD)");
+        }
     }
 
+    /**
+     * creates all creatures and adds them to the deck
+     */
     public void createCreatures(){
         //Beast creatures.
         Card goblin = new Card(1, "Beast", "Goblin", 2, 1, "   ", "   ");
@@ -121,7 +177,7 @@ public class Game {
         Card mopMan = new Card(1, "Horror", "Mop Man", 1, 2, "   ", "   ");
         Card bread = new Card(1, "Horror", "Bread?", 1, 2, "   ", "   ");
         Card yourMom = new Card(1, "Horror", "YOUR MOM", 1, 2, "   ", "   ");
-        Card coldPockets = new Card(1, "Horror", "Cold Pockets", 1, 2, "   ", "   ");
+        Card coldPockets = new Card(1, "Horror", "ColdPocket", 1, 2, "   ", "   ");
         Card poopernuf = new Card(1, "Horror", "Poopernuf", 1, 2, "   ", "   ");
         Card spahgeghti = new Card(1, "Horror", "Spahgeghti", 1, 2, "   ", "   ");
         Card wetSocks = new Card(1, "Horror", "WetSocks", 1, 2, "   ", "   ");
@@ -142,12 +198,13 @@ public class Game {
 
     }
 
+    /**
+     * computer takes a turn
+     */
     public void compTurn(){
         boolean compTurn = true;
-        int compHandSize = computer.getHand().size();
         Random compRan = new Random();
         boolean canPlay;
-
         while (!computer.getHand().isEmpty() && compTurn){
             canPlay = false;
             for (int i = 0; i < computer.getHand().size(); i++) {
@@ -156,13 +213,16 @@ public class Game {
                 }
             }
             if(canPlay) {
-                playCard(computer, compRan.nextInt(compHandSize));
+                playCard(computer, compRan.nextInt(computer.getHand().size()));
             } else {
                 compTurn = false;
             }
         }
     }
 
+    /**
+     * player turn.
+     */
     public void takeTurn() {
         boolean turn = true;
         while (!player.getHand().isEmpty() && turn) {
@@ -170,22 +230,24 @@ public class Game {
                 menu.printCards(player.getHand());
                 switch(menu.turnMenu(player, computer)) {
                     case 1:
-                        playCard(player, menu.getInt(1, player.getHand().size(), "Pick a card") - 1);
+                        playCard(player, menu.getInt(1, player.getHand().size(), "Pick a card, any card!") - 1);
                         break;
-                    case 4:
+                    case 2:
+                        pray();
+                        break;
+                    case 3:
                         menu.displayRules();
                         break;
-                    case 5:
-                        turn = false;
+                    case 4:
                         break;
                 }
             }
     }
 
     /**
-     *
-     * @param player
-     * @param cardToPlay
+     * Method to play a card from player
+     * @param player Passes through player to select
+     * @param cardToPlay takes an int to select which card in selected players hand to play
      */
     private void playCard(Player player, int cardToPlay) {
         if (player.getHand().get(cardToPlay).getCost() <= player.getCurrentMana()) {
@@ -198,16 +260,24 @@ public class Game {
             player.removeCardFromHand(player.getHand().get(cardToPlay));
         } else {
             if (player.isHuman()) {
-                System.out.println("Not enough Mana");
+                System.out.println("Not enough Manas in your pockets");
             }
         }
     }
 
+    /**
+     * prints board according how the board prints
+     */
     private void printBoard() {
         menu.printCards(board.getComputerBoard());
         menu.printCards(board.getPlayerBoard());
     }
 
+    /**
+     * checks for loss. haha just kidding. checks for win
+     * @param player
+     * @return
+     */
     private boolean checkWin(Player player) {
         if(player.getHp() <= 0) {
             return true;
@@ -216,6 +286,10 @@ public class Game {
         }
     }
 
+    /**
+     * deals damage to cards/computer/player and removes un-live cards and checks for win
+     * @param turn
+     */
     public void endTurn(int turn){
         if(turn == 1) {
             for (int i = 0; i < board.getPlayerBoard().size(); i++) {

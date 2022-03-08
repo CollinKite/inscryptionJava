@@ -14,13 +14,13 @@ public class Menu {
     //Creates menu in a box
     public int startMenu() {
         List cardPos = new ArrayList<>();
-        String cardTop =    "┌──────────┐";
-        String firstLine =  "│1: New    │";
-        String blankSpace = "│2:        │";
-        String specialLine ="│          │";
-        String secondLine = "│          │";
-        String thirdLine =  "│5: Exit   │";
-        String cardBottom = "└──────────┘";
+        String cardTop =    "┌───────────┐";
+        String firstLine =  "│1: New     │";
+        String blankSpace = "│2: Credits │";
+        String specialLine ="│3: Exit    │";
+        String secondLine = "│           │";
+        String thirdLine =  "│           │";
+        String cardBottom = "└───────────┘";
 
         cardPos.add(cardTop);
         cardPos.add(firstLine);
@@ -31,26 +31,34 @@ public class Menu {
         cardPos.add(cardBottom);
 
         cardPos.forEach(System.out::println);
-while (!getAnswerInt.hasNext("[15]")){
+while (!getAnswerInt.hasNext("[123]")){
     System.out.println("Enter a valid option");
     getAnswerInt.next();
 }
 answer = getAnswerInt.nextInt();
 return answer;
     }
+    public void viewCredits(){
 
-//turn menu, also in a box, nice right?
+    }
+
+
+    /**
+     *  turn menu, also in a box, nice right
+     * @param player
+     * @param computer
+     * @return
+     */
     public int turnMenu(Player player, Player computer) {
         String cardTop =    "┌──────────┐\n";
         String firstLine =  "│1: Play   │  Your HP: " +player.getHp() + "\n";
-        String blankSpace = "│2:        │  Opponent HP: " + computer.getHp() + "\n";
-        String specialLine ="│3:        │  Mana: " + getManaString(player) + "\n";
-        String secondLine = "│4: Rules  │\n";
-        String thirdLine =  "│5: End    │\n";
+        String blankSpace = "│2: Pray   │  Opponent HP: " + computer.getHp() + "\n";
+        String secondLine = "│3: Rules  │  Mana: " + getManaString(player) + "\n";
+        String thirdLine =  "│4: End    │\n";
         String cardBottom = "└──────────┘\n";
 
-        System.out.println(cardTop + firstLine + blankSpace + specialLine + secondLine + thirdLine + cardBottom);
-        while (!getAnswerInt.hasNext("[145]")){
+        System.out.println(cardTop + firstLine + blankSpace + secondLine + thirdLine + cardBottom);
+        while (!getAnswerInt.hasNext("[1234]")){
             System.out.println("Enter a valid option");
             getAnswerInt.next();
         }
@@ -60,7 +68,7 @@ return answer;
     }
 
     /**
-     *
+     * Method
      * @param min lower bounds to validate
      * @param max upper bounds to validate
      * @param prompt asks user to input number
@@ -95,6 +103,11 @@ return answer;
         System.out.println(line1 + line2 + line3 + line4 + line5 + line6 + line7 + line8 + line9 + line10 + line11 + line12);
     }
 
+    /**
+     * retrieve mana converted into a String
+     * @param player
+     * @return
+     */
     private String getManaString(Player player) {
         String manaString = "";
         for (int i = 0; i < player.getCurrentMana(); i++) {
@@ -103,6 +116,10 @@ return answer;
         return manaString;
     }
 
+    /**
+     * Displays creature encased in a []. hotpockets
+     * @param cards
+     */
     public void printCards(ArrayList<Card> cards) {
         //Prints cards next to each other line by line.
 
@@ -140,4 +157,5 @@ return answer;
 
         System.out.println(CardTop + firstLine + blankSpace + specialLine + secondLine + thirdLine + cardBottom);
     }
+
 }

@@ -3,11 +3,21 @@ package com.example.inscryption.Model;
 public class Card {
     private int cost;
     private String type, name;
-    private int atk, hp; //-900 will be used to represent a blank space for the purpose of spell cards
+    private int atk, hp;
     private String special1, special2;
 
     public Card(){}
 
+    /**
+     * Constructor to set all card values
+     * @param cost
+     * @param type
+     * @param name
+     * @param atk
+     * @param hp
+     * @param special1
+     * @param special2
+     */
     public Card(int cost, String type, String name, int atk, int hp, String special1, String special2) {
         setCost(cost);
         setType(type);

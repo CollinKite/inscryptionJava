@@ -30,7 +30,7 @@ public class Board {
             }
         }
         if(!indexes.isEmpty()) {
-            for (int i = 0; i < indexes.size(); i++) {
+            for (int i = indexes.size() - 1; i > -1; i--) {
                 playerBoard.remove(indexes.get(i).intValue());
             }
         }
@@ -41,7 +41,7 @@ public class Board {
             }
         }
         if(!indexes.isEmpty()) {
-            for (int i = 0; i < indexes.size(); i++) {
+            for (int i = indexes.size() - 1; i > -1; i--) {
                 computerBoard.remove(indexes.get(i).intValue());
             }
         }
