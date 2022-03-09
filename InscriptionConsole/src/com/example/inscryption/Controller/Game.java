@@ -1,41 +1,34 @@
 package com.example.inscryption.Controller;
 
-import com.example.inscryption.Model.Board;
-import com.example.inscryption.Model.Deck;
-import com.example.inscryption.Model.Card;
-import com.example.inscryption.Model.Player;
+import com.example.inscryption.Model.*;
 import com.example.inscryption.View.Menu;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.lang.reflect.Array;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
 
 public class Game {
     private Menu menu = new Menu();
     private Deck masterDeck = new Deck();
     private Board board = new Board();
-    private Player player = new Player();
-    private Player computer = new Player();
     private Random random = new Random();
+    private Human player = new Human();
+    private Computer computer = new Computer();
+
+    private void setUpHuman(){
+
+    }
 
     /**
      * Initializes and starts game with appropriate methods
      */
     public void start(){
         boolean gaming = true;
-        while(gaming) {
+        while (gaming) {
             if (masterDeck.getDeck().isEmpty()) {
                 createCreatures();
             }
-            computer.setPlayerDeck(masterDeck.clone());
             board = new Board();
-            player = new Player();
-            computer = new Player();
             player.setHuman(true);
             computer.setHuman(false);
             switch (menu.startMenu()) {
@@ -47,10 +40,11 @@ public class Game {
                             "\n" +
                             "Pursued by the Empire’s sinister agents, Princess Leia races home aboard her starship, custodian of the stolen plans that can save her people and restore freedom to the galaxy….");
                     break;
-                case 3: // shop menu
-                    cardShop();
+                case 3:
+                    cardShop(player);
                     break;
                 case 4:
+                    save();
                     System.out.println("Exit successful, this time...");
                     gaming = false;
                     break;
@@ -58,16 +52,50 @@ public class Game {
         }
     }
 
-    private void makeDeck(Player player) {
-        if(player)
+    private void makeDeck(Human player) {
+        ArrayList<Card> newDeck = new ArrayList<>();
+        if (!player.getOwnedCards().isEmpty()) {
+            boolean editing = true;
+            String numbers = "     ";
+            while(editing) {
+                switch (menu.deckEditor()) {
+                    case 1:
+                        menu.printCards(player.getOwnedCards());
+                        numbers = "     ";
+                        for (int i = 0; i < player.getOwnedCards().size(); i++) {
+                            numbers += i + "         ";
+                        }
+                        System.out.println(numbers);
+                        newDeck.add(player.getOwnedCards().get(menu.getInt(0, player.getOwnedCards().size(), "Which card would you like to add?")).clone());
+                        break;
+                    case 2:
+                        menu.printCards(newDeck);
+                        numbers = "     ";
+                        for (int i = 0; i < player.getOwnedCards().size(); i++) {
+                            numbers += i + "         ";
+                        }
+                        System.out.println(numbers);
+                        newDeck.remove(menu.getInt(0, newDeck.size(), "Which card would you like to remove?"));
+                        break;
+                    case 3:
+                        menu.printCards(newDeck);
+                        break;
+                    case 4:
+                        player.getMadeDecks().add(new Deck(newDeck));
+                        editing = false;
+                        break;
+                }
+            }
+        }
     }
 
-    private void pray(){
+
+    private void pray() {
         int answer = random.nextInt(2);
-        switch (answer){
+        switch (answer) {
             case 0:
                 System.out.println("your prayers have been answered");
-                if(masterDeck.getDeck().isEmpty()) {
+                if (masterDeck.getDeck().isEmpty()) {
                     createCreatures();
                     masterDeck.shuffle();
                 }
@@ -85,18 +113,18 @@ public class Game {
     /**
      * Sets Game Up
      */
-    private void initGame(){
+    private void initGame() {
         boolean gameIsRunning = true, playerTurn = true, playerWin = false, computerWin = false;
         masterDeck.shuffle();
-        while (player.getHand().size() < 3){
-            if(masterDeck.getDeck().isEmpty()) {
+        while (player.getHand().size() < 3) {
+            if (masterDeck.getDeck().isEmpty()) {
                 createCreatures();
                 masterDeck.shuffle();
             }
             player.addCardToHand(masterDeck.drawCard());
         }
-        while(gameIsRunning){
-            if(masterDeck.getDeck().isEmpty()) {
+        while (gameIsRunning) {
+            if (masterDeck.getDeck().isEmpty()) {
                 createCreatures();
                 masterDeck.shuffle();
             }
@@ -112,14 +140,14 @@ public class Game {
                 computer.addCardToHand(masterDeck.drawCard());
                 computer.setMana(computer.getMana() + 1);
                 computer.setCurrentMana(computer.getMana());
-                compTurn();
+                compTurn(computer);
                 endTurn(2);
                 computerWin = checkWin(player);
                 playerTurn = true;
             }
             gameIsRunning = !playerWin && !computerWin;
         }
-        if(playerWin) {
+        if (playerWin) {
             //win
             System.out.println("You don' defeatified your badguy!!");
         } else {
@@ -131,19 +159,19 @@ public class Game {
     /**
      * creates all creatures and adds them to the deck
      */
-    public void createCreatures(){
+    public void createCreatures() {
         //Beast creatures.
         Card goblin = new Card(1, "Beast", "Goblin", 2, 1, "   ", "   ");
         Card HUNYBUNZ = new Card(4, "Beast", "Hunter", 0, 6, "   ", "   ");
         Card lizard = new Card(1, "Beast", "Lizard", 1, 1, "   ", "   ");
-        Card wolf = new Card(6, "Beast", "Wolf", 0, 6, "   ", "   ");
-        Card hogRider = new Card(1, "Centaur", "Hog Rider", 1, 2, "   ", "   ");
-        Card squirl = new Card(1, "Beast", "Squirl", 1, 2, "   ", "   ");
-        Card bear = new Card(1, "Beast", "Bear", 1, 2, "   ", "   ");
+        Card wolf = new Card(2, "Beast", "Wolf", 2, 3, "   ", "   ");
+        Card hogRider = new Card(1, "CofC", "Hog Rider", 1, 2, "   ", "   ");
+        Card squirl = new Card(0, "Beast", "Squirl", 1, 1, "   ", "   ");
+        Card bear = new Card(4, "Beast", "Bear", 4, 6, "   ", "   ");
         Card gremlin = new Card(1, "Beast", "Gremlin", 1, 2, "   ", "   ");
-        Card turtle = new Card(1, "Beast", "Turtle", 1, 2, "   ", "   ");
-        Card porcupine = new Card(1, "Beast", "Porcupine", 1, 2, "   ", "   ");
-        Card bird = new Card(1, "Beast", "Bird", 1, 2, "   ", "   ");
+        Card turtle = new Card(3, "Beast", "Turtle", 1, 5, "   ", "   ");
+        Card porcupine = new Card(3, "Beast", "Porcupine", 2, 4, "   ", "   ");
+        Card bird = new Card(1, "Beast", "Bird", 2, 1, "   ", "   ");
 
         masterDeck.addCard(goblin);
         masterDeck.addCard(HUNYBUNZ);
@@ -162,16 +190,16 @@ public class Game {
         Card zombie = new Card(1, "Undead", "Zombie", 1, 2, "   ", "   ");
         Card skeleton = new Card(2, "Undead", "Skeleton", 2, 1, "   ", "   ");
         Card skeletonArcher = new Card(2, "Undead", "Skel Arch", 3, 1, "   ", "   ");
-                    //special needed
+        //special needed
         Card necromancer = new Card(4, "Unundead", "Necromanca", 0, 1, "   ", "   ");
-                    //could have flying or some ghost ability
+        //could have flying or some ghost ability
         Card ghost = new Card(3, "Undead", "Ghost", 2, 2, "   ", "   ");
         Card wraith = new Card(4, "Undead", "Wraith", 4, 2, "   ", "   ");
-                    //maybe add that revenant resurrects after died, but like, weaker. or kills what killed it.
+        //maybe add that revenant resurrects after died, but like, weaker. or kills what killed it.
         Card revenant = new Card(5, "Undead", "Revenant", 2, 5, "   ", "   ");
-        Card ghoul = new Card(5, "Undead", "Ghoul", 2, 5, "   ", "   ");
-        Card lich = new Card(5, "Undead", "Lich", 2, 5, "   ", "   ");
-        Card mummy = new Card(5, "Undead", "Mummy", 2, 5, "   ", "   ");
+        Card ghoul = new Card(2, "Undead", "Ghoul", 2, 2, "   ", "   ");
+        Card lich = new Card(3, "Undead", "Lich", 4, 2, "   ", "   ");
+        Card mummy = new Card(2, "Undead", "Mummy", 1, 3, "   ", "   ");
 
         masterDeck.addCard(zombie);
         masterDeck.addCard(skeleton);
@@ -208,23 +236,46 @@ public class Game {
         masterDeck.addCard(tingyFingy);
         masterDeck.addCard(tacobell);
 
+        //Techno Deck
+        Card robot = new Card(2, "Tech", "Robot", 2, 2, "   ", "   ");
+        Card toaster = new Card(1, "Tech", "Toaster?", 1, 1, "   ", "   ");
+        Card computer = new Card(5, "Tech", "Computer", 5, 3, "   ", "   ");
+        Card lazerGun = new Card(3, "Tech", "Lazer Gun", 3, 1, "   ", "   ");
+        Card cyborg = new Card(3, "Tech", "Cyborg", 3, 3, "   ", "   ");
+        Card scrapDroid = new Card(1, "Tech", "ScrapDroid", 2, 1, "   ", "   ");
+        Card welderBot = new Card(2, "Tech", "WelderBot", 2, 1, "   ", "   ");
+        Card cyberBully = new Card(2, "Tech", "CyberBully", 4, 1, "   ", "   ");
+        Card meanText = new Card(1, "Tech", "Mean Text", 1, 1, "   ", "   ");
+        Card battery = new Card(3, "Tech", "Battery", 2, 2, "   ", "   ");
+
+        masterDeck.addCard(robot);
+        masterDeck.addCard(toaster);
+        masterDeck.addCard(computer);
+        masterDeck.addCard(lazerGun);
+        masterDeck.addCard(cyborg);
+        masterDeck.addCard(scrapDroid);
+        masterDeck.addCard(welderBot);
+        masterDeck.addCard(cyberBully);
+        masterDeck.addCard(meanText);
+        masterDeck.addCard(battery);
+
     }
 
     /**
      * computer takes a turn
      */
-    private void compTurn(){
+    private void compTurn(Computer computer) {
         boolean compTurn = true;
         boolean canPlay;
-        while (!computer.getHand().isEmpty() && compTurn){
+        while (!computer.getHand().isEmpty() && compTurn) {
             canPlay = false;
             for (int i = 0; i < computer.getHand().size(); i++) {
-                if(computer.getHand().get(i).getCost() <= computer.getCurrentMana()) {
+                if (computer.getHand().get(i).getCost() <= computer.getCurrentMana()) {
                     canPlay = true;
                 }
             }
-            if(canPlay) {
-                playCard(computer, c.nextInt(computer.getHand().size()));
+            if (canPlay) {
+                playCard(computer, random.nextInt(computer.getHand().size()));
             } else {
                 compTurn = false;
             }
@@ -237,27 +288,29 @@ public class Game {
     private void takeTurn() {
         boolean turn = true;
         while (!player.getHand().isEmpty() && turn) {
-                printBoard();
-                menu.printCards(player.getHand());
-                switch(menu.turnMenu(player, computer)) {
-                    case 1:
-                        playCard(player, menu.getInt(1, player.getHand().size(), "Pick a card, any card!") - 1);
-                        break;
-                    case 2:
-                        pray();
-                        break;
-                    case 3:
-                        menu.displayRules();
-                        break;
-                    case 4:
-                        break;
-                }
+            printBoard();
+            menu.printCards(player.getHand());
+            switch (menu.turnMenu(player, computer)) {
+                case 1:
+                    playCard(player, menu.getInt(1, player.getHand().size(), "Pick a card, any card!") - 1);
+                    break;
+                case 2:
+                    pray();
+                    break;
+                case 3:
+                    menu.displayRules();
+                    break;
+                case 4:
+                    makeDeck(player);
+                    break;
             }
+        }
     }
 
     /**
      * Method to play a card from player
-     * @param player Passes through player to select
+     *
+     * @param player     Passes through player to select
      * @param cardToPlay takes an int to select which card in selected players hand to play
      */
     private void playCard(Player player, int cardToPlay) {
@@ -286,11 +339,12 @@ public class Game {
 
     /**
      * checks for loss. haha just kidding. checks for win
+     *
      * @param player
      * @return
      */
     private boolean checkWin(Player player) {
-        if(player.getHp() <= 0) {
+        if (player.getHp() <= 0) {
             return true;
         } else {
             return false;
@@ -299,10 +353,11 @@ public class Game {
 
     /**
      * deals damage to cards/computer/player and removes un-live cards and checks for win
+     *
      * @param turn
      */
-    private void endTurn(int turn){
-        if(turn == 1) {
+    private void endTurn(int turn) {
+        if (turn == 1) {
             for (int i = 0; i < board.getPlayerBoard().size(); i++) {
                 try {
                     board.getComputerBoard().get(i).setHp(board.getComputerBoard().get(i).getHp() - board.getPlayerBoard().get(i).getAtk());
@@ -310,7 +365,7 @@ public class Game {
                     computer.setHp(computer.getHp() - board.getPlayerBoard().get(i).getAtk());
                 }
             }
-        } else if(turn == 2) {
+        } else if (turn == 2) {
             for (int i = 0; i < board.getComputerBoard().size(); i++) {
                 try {
                     board.getPlayerBoard().get(i).setHp(board.getPlayerBoard().get(i).getHp() - board.getComputerBoard().get(i).getAtk());
@@ -322,26 +377,36 @@ public class Game {
         board.removeDeadCards();
     }
 
-    private void cardShop(){
+    private void cardShop(Human human) {
         int answer;
-        while (points > 0) {
-            int cost = 5;
+        if(human.getGold() == 0) {
+            System.out.println("You dont have any gold");
+        }
+        while (human.getGold() > 0) {
+
             for (int i = 0; i < 2; i++) {
                 System.out.println(i + ": " + masterDeck.getDeck().get(random.nextInt(masterDeck.getDeck().size())).clone().getName());
             }
             answer = menu.getInt(0, masterDeck.getDeck().size(), "Make a selection");
             for (int i = 0; i < masterDeck.getDeck().size(); i++) {
-                if (masterDeck.getDeck().get(i).equals(answer)){
+                if (masterDeck.getDeck().get(i).equals(answer)) {
                     player.addCardToHand(masterDeck.getDeck().get(i));
                 }
             }
 
         }
     }
-    public void saveHand() throws IOException {
-        File file = new File("Cards");
-        FileWriter writer = new FileWriter(file);
-        FileReader reader = new FileReader(file);
-        writer.write(player.getHand().addAll());
+
+    public void save() {
+        try {
+            File file = new File("SaveData.txt");
+            FileOutputStream outputStream = new FileOutputStream(file);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+            objectOutputStream.writeObject(player);
+            outputStream.close();
+        } catch (IOException e) {
+            System.out.println("Tried to save to a file that doesnt exist");
+        }
     }
 }
+

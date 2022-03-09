@@ -14,24 +14,24 @@ public class Menu {
     //Creates menu in a box
     public int startMenu() {
         List cardPos = new ArrayList<>();
-        String cardTop =    "┌───────────┐";
-        String firstLine =  "│1: New     │";
-        String blankSpace = "│2: Credits │";
-        String secondLine = "│3: Shop    │";
-        String specialLine ="│4: Exit    │";
-        String thirdLine =  "│           │";
-        String cardBottom = "└───────────┘";
-
+        String cardTop =    "≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻┌───────────┐≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻";
+        String firstLine =  "≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻│1: New     │≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻";
+        String blankSpace = "≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻│2: Credits │≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻";
+        String secondLine = "≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻│3: Shop    │≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻";
+        String specialLine ="≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻│4: Exit    │≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻";
+        String thirdLine =  "≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻│           │≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻";
+        String cardBottom = "≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻└───────────┘≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻";
+//≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻
         cardPos.add(cardTop);
         cardPos.add(firstLine);
         cardPos.add(blankSpace);
-        cardPos.add(specialLine);
         cardPos.add(secondLine);
+        cardPos.add(specialLine);
         cardPos.add(thirdLine);
         cardPos.add(cardBottom);
 
         cardPos.forEach(System.out::println);
-while (!getAnswerInt.hasNext("[123]")){
+while (!getAnswerInt.hasNext("[1234]")){
     System.out.println("Enter a valid option");
     getAnswerInt.next();
 }
@@ -54,7 +54,7 @@ return answer;
         String firstLine =  "│1: Play   │  Your HP: " +player.getHp() + "\n";
         String blankSpace = "│2: Pray   │  Opponent HP: " + computer.getHp() + "\n";
         String secondLine = "│3: Rules  │  Mana: " + getManaString(player) + "\n";
-        String thirdLine =  "│4: End    │\n";
+        String thirdLine =  "│4:MakeDeck│\n";
         String cardBottom = "└──────────┘\n";
 
         System.out.println(cardTop + firstLine + blankSpace + secondLine + thirdLine + cardBottom);
@@ -158,8 +158,21 @@ return answer;
         System.out.println(CardTop + firstLine + blankSpace + specialLine + secondLine + thirdLine + cardBottom);
     }
 
-    public void shopMenu(){
-        System.out.println("Make a selection");
+    public int deckEditor() {
+        String cardTop =    "┌──────────┐\n";
+        String firstLine =  "│1: Add    │\n";
+        String blankSpace = "│2: Remove │\n";
+        String secondLine = "│3: View   │\n";
+        String thirdLine =  "│4: End    │\n";
+        String cardBottom = "└──────────┘\n";
+
+        System.out.println(cardTop + firstLine + blankSpace + secondLine + thirdLine + cardBottom);
+        while (!getAnswerInt.hasNext("[1234]")){
+            System.out.println("Enter a valid option");
+            getAnswerInt.next();
+        }
+
+        return getAnswerInt.nextInt();
     }
 
 }
