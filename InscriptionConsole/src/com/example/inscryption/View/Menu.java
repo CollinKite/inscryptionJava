@@ -17,8 +17,8 @@ public class Menu {
         String cardTop =    "┌───────────┐";
         String firstLine =  "│1: New     │";
         String blankSpace = "│2: Credits │";
-        String specialLine ="│3: Exit    │";
-        String secondLine = "│           │";
+        String secondLine = "│3: Shop    │";
+        String specialLine ="│4: Exit    │";
         String thirdLine =  "│           │";
         String cardBottom = "└───────────┘";
 
@@ -156,6 +156,10 @@ return answer;
         thirdLine += "\n";
 
         System.out.println(CardTop + firstLine + blankSpace + specialLine + secondLine + thirdLine + cardBottom);
+    }
+
+    public void shopMenu(){
+        System.out.println("Make a selection");
     }
 
 }

@@ -5,9 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Deck {
-    ArrayList<Card> deck = new ArrayList<>();
-    Random random = new Random();
+public class Deck implements Cloneable{
+    private ArrayList<Card> deck = new ArrayList<>();
+    private Random random = new Random();
+
+    public Deck() {}
+
+    public Deck(ArrayList<Card> deck) {
+        this.deck = deck;
+    }
 
     public ArrayList<Card> getDeck() {
         return deck;
@@ -41,4 +47,12 @@ public class Deck {
         deck = shuffledDeck;
     }
 
+    public Deck clone() {
+        try {
+            return (Deck)super.clone();
+        } catch (CloneNotSupportedException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
 }

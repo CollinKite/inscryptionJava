@@ -1,6 +1,6 @@
 package com.example.inscryption.Model;
 
-public class Card {
+public class Card implements Cloneable{
     private int cost;
     private String type, name;
     private int atk, hp;
@@ -79,4 +79,13 @@ public class Card {
     public String getName() { return name; }
 
     public void setName(String name) { this.name = name; }
+
+    public Card clone() {
+        try {
+            return (Card)super.clone();
+        } catch (CloneNotSupportedException e) {
+            System.out.println("Failed to clone");
+        }
+        return null;
+    }
 }

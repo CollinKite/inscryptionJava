@@ -6,9 +6,14 @@ import com.example.inscryption.Model.Card;
 import com.example.inscryption.Model.Player;
 import com.example.inscryption.View.Menu;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Game {
     private Menu menu = new Menu();
@@ -16,7 +21,7 @@ public class Game {
     private Board board = new Board();
     private Player player = new Player();
     private Player computer = new Player();
-
+    private Random random = new Random();
 
     /**
      * Initializes and starts game with appropriate methods
@@ -27,6 +32,7 @@ public class Game {
             if (masterDeck.getDeck().isEmpty()) {
                 createCreatures();
             }
+            computer.setPlayerDeck(masterDeck.clone());
             board = new Board();
             player = new Player();
             computer = new Player();
@@ -41,7 +47,10 @@ public class Game {
                             "\n" +
                             "Pursued by the Empire’s sinister agents, Princess Leia races home aboard her starship, custodian of the stolen plans that can save her people and restore freedom to the galaxy….");
                     break;
-                case 3:
+                case 3: // shop menu
+                    cardShop();
+                    break;
+                case 4:
                     System.out.println("Exit successful, this time...");
                     gaming = false;
                     break;
@@ -49,9 +58,12 @@ public class Game {
         }
     }
 
-    public void pray(){
-        Random ranPray = new Random();
-        int answer = ranPray.nextInt(2);
+    private void makeDeck(Player player) {
+        if(player)
+    }
+
+    private void pray(){
+        int answer = random.nextInt(2);
         switch (answer){
             case 0:
                 System.out.println("your prayers have been answered");
@@ -73,7 +85,7 @@ public class Game {
     /**
      * Sets Game Up
      */
-    public void initGame(){
+    private void initGame(){
         boolean gameIsRunning = true, playerTurn = true, playerWin = false, computerWin = false;
         masterDeck.shuffle();
         while (player.getHand().size() < 3){
@@ -112,7 +124,7 @@ public class Game {
             System.out.println("You don' defeatified your badguy!!");
         } else {
             //loss
-            System.out.println("You joined collin's dad (DEAD)");
+            System.out.println("Welcum to dead, you did great at doing bad!!");
         }
     }
 
@@ -201,9 +213,8 @@ public class Game {
     /**
      * computer takes a turn
      */
-    public void compTurn(){
+    private void compTurn(){
         boolean compTurn = true;
-        Random compRan = new Random();
         boolean canPlay;
         while (!computer.getHand().isEmpty() && compTurn){
             canPlay = false;
@@ -213,7 +224,7 @@ public class Game {
                 }
             }
             if(canPlay) {
-                playCard(computer, compRan.nextInt(computer.getHand().size()));
+                playCard(computer, c.nextInt(computer.getHand().size()));
             } else {
                 compTurn = false;
             }
@@ -223,7 +234,7 @@ public class Game {
     /**
      * player turn.
      */
-    public void takeTurn() {
+    private void takeTurn() {
         boolean turn = true;
         while (!player.getHand().isEmpty() && turn) {
                 printBoard();
@@ -290,7 +301,7 @@ public class Game {
      * deals damage to cards/computer/player and removes un-live cards and checks for win
      * @param turn
      */
-    public void endTurn(int turn){
+    private void endTurn(int turn){
         if(turn == 1) {
             for (int i = 0; i < board.getPlayerBoard().size(); i++) {
                 try {
@@ -309,5 +320,28 @@ public class Game {
             }
         }
         board.removeDeadCards();
+    }
+
+    private void cardShop(){
+        int answer;
+        while (points > 0) {
+            int cost = 5;
+            for (int i = 0; i < 2; i++) {
+                System.out.println(i + ": " + masterDeck.getDeck().get(random.nextInt(masterDeck.getDeck().size())).clone().getName());
+            }
+            answer = menu.getInt(0, masterDeck.getDeck().size(), "Make a selection");
+            for (int i = 0; i < masterDeck.getDeck().size(); i++) {
+                if (masterDeck.getDeck().get(i).equals(answer)){
+                    player.addCardToHand(masterDeck.getDeck().get(i));
+                }
+            }
+
+        }
+    }
+    public void saveHand() throws IOException {
+        File file = new File("Cards");
+        FileWriter writer = new FileWriter(file);
+        FileReader reader = new FileReader(file);
+        writer.write(player.getHand().addAll());
     }
 }

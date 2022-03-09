@@ -1,5 +1,6 @@
 package com.example.inscryption.Model;
 
+
 import java.util.ArrayList;
 
 public class Player {
@@ -8,6 +9,17 @@ public class Player {
     private String name;
     private Deck playerDeck = new Deck();
     private boolean isHuman;
+    private ArrayList<Deck> madeDecks = new ArrayList<>(); //H
+    private int gold = 0; //H
+    private ArrayList<Card> ownedCards = new ArrayList<>(); //H
+
+    public int getGold() {
+        return gold;
+    }
+
+    public void setGold(int gold) {
+        this.gold = gold;
+    }
 
     public Player() {}
 
@@ -72,5 +84,33 @@ public class Player {
 
     public boolean isHuman() {
         return isHuman;
+    }
+
+    public void setPlayerDeck(Deck deck) {
+        this.playerDeck = deck;
+    }
+
+    public void setMadeDecks(ArrayList<Deck> madeDecks) {
+        this.madeDecks = madeDecks;
+    }
+
+    public void setHand(ArrayList<Card> hand) {
+        this.hand = hand;
+    }
+
+    public Deck getPlayerDeck() {
+        return playerDeck;
+    }
+
+    public ArrayList<Deck> getMadeDecks() {
+        return madeDecks;
+    }
+
+    public ArrayList<Card> getOwnedCards() {
+        return ownedCards;
+    }
+
+    public void setOwnedCards(ArrayList<Card> ownedCards) {
+        this.ownedCards = ownedCards;
     }
 }
