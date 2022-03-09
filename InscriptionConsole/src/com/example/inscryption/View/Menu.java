@@ -18,8 +18,8 @@ public class Menu {
         String firstLine =  "≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻│1: New     │≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻";
         String blankSpace = "≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻│2: Credits │≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻";
         String secondLine = "≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻│3: Shop    │≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻";
-        String specialLine ="≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻│4: Exit    │≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻";
-        String thirdLine =  "≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻│           │≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻";
+        String specialLine ="≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻│4: MakeDeck│≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻";
+        String thirdLine =  "≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻│5: Exit    │≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻";
         String cardBottom = "≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻└───────────┘≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻";
 //≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻
         cardPos.add(cardTop);
@@ -54,7 +54,7 @@ return answer;
         String firstLine =  "│1: Play   │  Your HP: " +player.getHp() + "\n";
         String blankSpace = "│2: Pray   │  Opponent HP: " + computer.getHp() + "\n";
         String secondLine = "│3: Rules  │  Mana: " + getManaString(player) + "\n";
-        String thirdLine =  "│4:MakeDeck│\n";
+        String thirdLine =  "│4: End    │\n";
         String cardBottom = "└──────────┘\n";
 
         System.out.println(cardTop + firstLine + blankSpace + secondLine + thirdLine + cardBottom);

@@ -5,6 +5,7 @@ import com.example.inscryption.View.Menu;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Game {
@@ -15,8 +16,8 @@ public class Game {
     private Human player = new Human();
     private Computer computer = new Computer();
 
-    private void setUpHuman(){
-
+    private Human setUpHuman(File file){
+        if(file.b)
     }
 
     /**
@@ -31,6 +32,7 @@ public class Game {
             board = new Board();
             player.setHuman(true);
             computer.setHuman(false);
+            player.getOwnedCards().add(masterDeck.drawCard());
             switch (menu.startMenu()) {
                 case 1:
                     initGame();
@@ -44,6 +46,9 @@ public class Game {
                     cardShop(player);
                     break;
                 case 4:
+                    makeDeck(player);
+                    break;
+                case 5:
                     save();
                     System.out.println("Exit successful, this time...");
                     gaming = false;
@@ -71,7 +76,7 @@ public class Game {
                     case 2:
                         menu.printCards(newDeck);
                         numbers = "     ";
-                        for (int i = 0; i < player.getOwnedCards().size(); i++) {
+                        for (int i = 0; i < newDeck.size(); i++) {
                             numbers += i + "         ";
                         }
                         System.out.println(numbers);
@@ -86,11 +91,13 @@ public class Game {
                         break;
                 }
             }
+        } else {
+            System.out.println("You don't own any cards to make a deck");
         }
     }
 
 
-    private void pray() {
+    private void pray(Human player) {
         int answer = random.nextInt(2);
         switch (answer) {
             case 0:
@@ -113,7 +120,7 @@ public class Game {
     /**
      * Sets Game Up
      */
-    private void initGame() {
+    private void initGame(Human player, Computer computer) {
         boolean gameIsRunning = true, playerTurn = true, playerWin = false, computerWin = false;
         masterDeck.shuffle();
         while (player.getHand().size() < 3) {
@@ -132,8 +139,8 @@ public class Game {
                 player.addCardToHand(masterDeck.drawCard());
                 player.setMana(player.getMana() + 1);
                 player.setCurrentMana(player.getMana());
-                takeTurn();
-                endTurn(1);
+                takeTurn(player, computer);
+                endTurn(1, player, computer);
                 playerWin = checkWin(computer);
                 playerTurn = false;
             } else {
@@ -141,7 +148,7 @@ public class Game {
                 computer.setMana(computer.getMana() + 1);
                 computer.setCurrentMana(computer.getMana());
                 compTurn(computer);
-                endTurn(2);
+                endTurn(2, player, computer);
                 computerWin = checkWin(player);
                 playerTurn = true;
             }
@@ -285,7 +292,7 @@ public class Game {
     /**
      * player turn.
      */
-    private void takeTurn() {
+    private void takeTurn(Human player, Computer computer) {
         boolean turn = true;
         while (!player.getHand().isEmpty() && turn) {
             printBoard();
@@ -295,13 +302,13 @@ public class Game {
                     playCard(player, menu.getInt(1, player.getHand().size(), "Pick a card, any card!") - 1);
                     break;
                 case 2:
-                    pray();
+                    pray(player);
                     break;
                 case 3:
                     menu.displayRules();
                     break;
                 case 4:
-                    makeDeck(player);
+                    turn = false;
                     break;
             }
         }
@@ -356,7 +363,7 @@ public class Game {
      *
      * @param turn
      */
-    private void endTurn(int turn) {
+    private void endTurn(int turn, Human player, Computer computer) {
         if (turn == 1) {
             for (int i = 0; i < board.getPlayerBoard().size(); i++) {
                 try {
@@ -377,12 +384,13 @@ public class Game {
         board.removeDeadCards();
     }
 
-    private void cardShop(Human human) {
+    private void cardShop(Human player) {
         int answer;
-        if(human.getGold() == 0) {
+        List cardPack = new ArrayList<>();
+        if(player.getGold() == 0) {
             System.out.println("You dont have any gold");
         }
-        while (human.getGold() > 0) {
+        while (player.getGold() > 0) {
 
             for (int i = 0; i < 2; i++) {
                 System.out.println(i + ": " + masterDeck.getDeck().get(random.nextInt(masterDeck.getDeck().size())).clone().getName());
@@ -397,7 +405,32 @@ public class Game {
         }
     }
 
-    public void save() {
+    private void initializeFile(){
+        try {
+
+            if(file.createNewFile()){} // Try to create new file, if it fails, file already exists, and we need to read the data from it.
+            else{
+                view.fileFound();
+                if(journalEntries.length() > 1){
+                    FileInputStream fis = new FileInputStream("journal.txt");
+                    ObjectInputStream ois = new ObjectInputStream(fis);
+                    journal = (ArrayList<JournalEntry>)ois.readObject();
+                }
+                else {
+                    view.emptyFile();
+                }
+
+
+            }
+            filesSetup = true;
+        }
+        catch (Exception e){
+            view.fileError();
+            filesSetup = false;
+        }
+    }
+
+    private void save() {
         try {
             File file = new File("SaveData.txt");
             FileOutputStream outputStream = new FileOutputStream(file);
