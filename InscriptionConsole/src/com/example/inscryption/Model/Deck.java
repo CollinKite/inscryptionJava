@@ -57,16 +57,6 @@ public class Deck implements Cloneable, Serializable {
         deck = shuffledDeck;
     }
 
-    //Returns Clone of Deck
-    public Deck clone() {
-        try {
-            return (Deck)super.clone();
-        } catch (CloneNotSupportedException e) {
-            System.out.println(e);
-        }
-        return null;
-    }
-
     //Getters and Setters
     public String getName() {
         return this.name;
