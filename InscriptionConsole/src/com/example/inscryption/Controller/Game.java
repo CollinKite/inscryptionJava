@@ -281,77 +281,77 @@ public class Game {
 
 
 //my undead army is pogg and cute and i'm tired of the backlash
-//        Card zombie = new Card(1, "Undead", "Zombie", 1, 2, "   ", "   ");
-//        Card skeleton = new Card(2, "Undead", "Skeleton", 2, 1, "   ", "   ");
-//        Card skeletonArcher = new Card(2, "Undead", "Skel Arch", 3, 1, "   ", "   ");
-//        //special needed
-//        Card necromancer = new Card(4, "Unundead", "Necromanca", 0, 1, "   ", "   ");
-//        //could have flying or some ghost ability
-//        Card ghost = new Card(3, "Undead", "Ghost", 2, 2, "   ", "   ");
-//        Card wraith = new Card(4, "Undead", "Wraith", 4, 2, "   ", "   ");
-//        //maybe add that revenant resurrects after died, but like, weaker. or kills what killed it.
-//        Card revenant = new Card(5, "Undead", "Revenant", 2, 5, "   ", "   ");
-//        Card ghoul = new Card(2, "Undead", "Ghoul", 2, 2, "   ", "   ");
-//        Card lich = new Card(3, "Undead", "Lich", 4, 2, "   ", "   ");
-//        Card mummy = new Card(2, "Undead", "Mummy", 1, 3, "   ", "   ");
-//
-//        masterDeck.addCard(zombie);
-//        masterDeck.addCard(skeleton);
-//        masterDeck.addCard(skeletonArcher);
-//        masterDeck.addCard(necromancer);
-//        masterDeck.addCard(ghost);
-//        masterDeck.addCard(wraith);
-//        masterDeck.addCard(revenant);
-//        masterDeck.addCard(ghoul);
-//        masterDeck.addCard(lich);
-//        masterDeck.addCard(mummy);
-//
-//
-////unnatural horrors
-//        Card mopMan = new Card(1, "Horror", "Mop Man", 1, 2, "   ", "   ");
-//        Card bread = new Card(1, "Horror", "Bread?", 1, 2, "   ", "   ");
-//        Card yourMom = new Card(1, "Horror", "YOUR MOM", 1, 2, "   ", "   ");
-//        Card coldPockets = new Card(1, "Horror", "ColdPocket", 1, 2, "   ", "   ");
-//        Card poopernuf = new Card(1, "Horror", "Poopernuf", 1, 2, "   ", "   ");
-//        Card spahgeghti = new Card(1, "Horror", "Spahgeghti", 1, 2, "   ", "   ");
-//        Card wetSocks = new Card(1, "Horror", "WetSocks", 1, 2, "   ", "   ");
-//        Card whiteOreos = new Card(1, "Horror", "WhiteOreos", 1, 2, "   ", "   ");
-//        Card tingyFingy = new Card(1, "Horror", "TingyFingy", 1, 2, "   ", "   ");
-//        Card tacobell = new Card(1, "Horror", "Taco Bell", 1, 2, "   ", "   ");
-//
-//        masterDeck.addCard(mopMan);
-//        masterDeck.addCard(bread);
-//        masterDeck.addCard(yourMom);
-//        masterDeck.addCard(coldPockets);
-//        masterDeck.addCard(poopernuf);
-//        masterDeck.addCard(spahgeghti);
-//        masterDeck.addCard(wetSocks);
-//        masterDeck.addCard(whiteOreos);
-//        masterDeck.addCard(tingyFingy);
-//        masterDeck.addCard(tacobell);
-//
-//        //Techno Deck
-//        Card robot = new Card(2, "Tech", "Robot", 2, 2, "   ", "   ");
-//        Card toaster = new Card(1, "Tech", "Toaster?", 1, 1, "   ", "   ");
-//        Card computer = new Card(5, "Tech", "Computer", 5, 3, "   ", "   ");
-//        Card lazerGun = new Card(3, "Tech", "Lazer Gun", 3, 1, "   ", "   ");
-//        Card cyborg = new Card(3, "Tech", "Cyborg", 3, 3, "   ", "   ");
-//        Card scrapDroid = new Card(1, "Tech", "ScrapDroid", 2, 1, "   ", "   ");
-//        Card welderBot = new Card(2, "Tech", "WelderBot", 2, 1, "   ", "   ");
-//        Card cyberBully = new Card(2, "Tech", "CyberBully", 4, 1, "   ", "   ");
-//        Card meanText = new Card(1, "Tech", "Mean Text", 1, 1, "   ", "   ");
-//        Card battery = new Card(3, "Tech", "Battery", 2, 2, "   ", "   ");
-//
-//        masterDeck.addCard(robot);
-//        masterDeck.addCard(toaster);
-//        masterDeck.addCard(computer);
-//        masterDeck.addCard(lazerGun);
-//        masterDeck.addCard(cyborg);
-//        masterDeck.addCard(scrapDroid);
-//        masterDeck.addCard(welderBot);
-//        masterDeck.addCard(cyberBully);
-//        masterDeck.addCard(meanText);
-//        masterDeck.addCard(battery);
+        Card zombie = new Card(1, "Undead", "Zombie", 1, 2, "   ", "   ");
+        Card skeleton = new Card(2, "Undead", "Skeleton", 2, 1, "   ", "   ");
+        Card skeletonArcher = new Card(2, "Undead", "Skel Arch", 3, 1, "   ", "   ");
+        //special needed
+        Card necromancer = new Card(4, "Unundead", "Necromanca", 0, 1, "   ", "   ");
+        //could have flying or some ghost ability
+        Card ghost = new Card(3, "Undead", "Ghost", 2, 2, "   ", "   ");
+        Card wraith = new Card(4, "Undead", "Wraith", 4, 2, "   ", "   ");
+        //maybe add that revenant resurrects after died, but like, weaker. or kills what killed it.
+        Card revenant = new Card(5, "Undead", "Revenant", 2, 5, "   ", "   ");
+        Card ghoul = new Card(2, "Undead", "Ghoul", 2, 2, "   ", "   ");
+        Card lich = new Card(3, "Undead", "Lich", 4, 2, "   ", "   ");
+        Card mummy = new Card(2, "Undead", "Mummy", 1, 3, "   ", "   ");
+
+        masterDeck.addCard(zombie);
+        masterDeck.addCard(skeleton);
+        masterDeck.addCard(skeletonArcher);
+        masterDeck.addCard(necromancer);
+        masterDeck.addCard(ghost);
+        masterDeck.addCard(wraith);
+        masterDeck.addCard(revenant);
+        masterDeck.addCard(ghoul);
+        masterDeck.addCard(lich);
+        masterDeck.addCard(mummy);
+
+
+//unnatural horrors
+        Card mopMan = new Card(1, "Horror", "Mop Man", 1, 2, "   ", "   ");
+        Card bread = new Card(1, "Horror", "Bread?", 1, 2, "   ", "   ");
+        Card yourMom = new Card(1, "Horror", "YOUR MOM", 1, 2, "   ", "   ");
+        Card coldPockets = new Card(1, "Horror", "ColdPocket", 1, 2, "   ", "   ");
+        Card poopernuf = new Card(1, "Horror", "Poopernuf", 1, 2, "   ", "   ");
+        Card spahgeghti = new Card(1, "Horror", "Spahgeghti", 1, 2, "   ", "   ");
+        Card wetSocks = new Card(1, "Horror", "WetSocks", 1, 2, "   ", "   ");
+        Card whiteOreos = new Card(1, "Horror", "WhiteOreos", 1, 2, "   ", "   ");
+        Card tingyFingy = new Card(1, "Horror", "TingyFingy", 1, 2, "   ", "   ");
+        Card tacobell = new Card(1, "Horror", "Taco Bell", 1, 2, "   ", "   ");
+
+        masterDeck.addCard(mopMan);
+        masterDeck.addCard(bread);
+        masterDeck.addCard(yourMom);
+        masterDeck.addCard(coldPockets);
+        masterDeck.addCard(poopernuf);
+        masterDeck.addCard(spahgeghti);
+        masterDeck.addCard(wetSocks);
+        masterDeck.addCard(whiteOreos);
+        masterDeck.addCard(tingyFingy);
+        masterDeck.addCard(tacobell);
+
+        //Techno Deck
+        Card robot = new Card(2, "Tech", "Robot", 2, 2, "   ", "   ");
+        Card toaster = new Card(1, "Tech", "Toaster?", 1, 1, "   ", "   ");
+        Card computer = new Card(5, "Tech", "Computer", 5, 3, "   ", "   ");
+        Card lazerGun = new Card(3, "Tech", "Lazer Gun", 3, 1, "   ", "   ");
+        Card cyborg = new Card(3, "Tech", "Cyborg", 3, 3, "   ", "   ");
+        Card scrapDroid = new Card(1, "Tech", "ScrapDroid", 2, 1, "   ", "   ");
+        Card welderBot = new Card(2, "Tech", "WelderBot", 2, 1, "   ", "   ");
+        Card cyberBully = new Card(2, "Tech", "CyberBully", 4, 1, "   ", "   ");
+        Card meanText = new Card(1, "Tech", "Mean Text", 1, 1, "   ", "   ");
+        Card battery = new Card(3, "Tech", "Battery", 2, 2, "   ", "   ");
+
+        masterDeck.addCard(robot);
+        masterDeck.addCard(toaster);
+        masterDeck.addCard(computer);
+        masterDeck.addCard(lazerGun);
+        masterDeck.addCard(cyborg);
+        masterDeck.addCard(scrapDroid);
+        masterDeck.addCard(welderBot);
+        masterDeck.addCard(cyberBully);
+        masterDeck.addCard(meanText);
+        masterDeck.addCard(battery);
 
     }
 
