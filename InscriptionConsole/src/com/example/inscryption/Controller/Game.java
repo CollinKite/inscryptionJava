@@ -13,21 +13,27 @@ public class Game {
     private Board board = new Board();
     private Random random = new Random();
 
+    /**
+     * Checks to see if Save File exists, if it exists we return the saved object, otherwise return a new empty object
+     * @return
+     */
     private Human setUpHuman(){
         File file = new File("SaveData.txt");
         try {
-            if(file.exists()){
+            if(file.createNewFile()){
 
             } // Try to create new file, if it fails, file already exists, and we need to read the data from it.
             else{
-                menu.print("Found Player Save!");
+                menu.print("Found Save File!");
                 if(file.length() > 1){
                     FileInputStream fis = new FileInputStream(file);
                     ObjectInputStream ois = new ObjectInputStream(fis);
-                    return (Human)ois.readObject();
+                    Human player = (Human)ois.readObject();
+                    fis.close();
+                    return player;
                 }
                 else {
-                    menu.print("Player Save has No Data ");
+                    menu.print("Save File Has No Data");
                 }
             }
         }
@@ -46,7 +52,6 @@ public class Game {
         createCreatures();
         Human player = setUpHuman();
         Computer computer = createComputer();
-        player.setGold(1);
         while (gaming) {
             board = new Board();
             switch (menu.startMenu()) {
@@ -80,7 +85,7 @@ public class Game {
      */
     private void chooseDeck(Human player) {
         if(player.getMadeDecks().isEmpty()) {
-            player.setPlayerDeck(masterDeck.clone());
+            player.setPlayerDeck(new Deck((ArrayList<Card>) masterDeck.getDeck().clone(), "Starter Deck"));
         } else {
             player.setPlayerDeck(player.getMadeDecks().get(menu.chooseDeck(player.getMadeDecks())));
         }
@@ -135,7 +140,6 @@ public class Game {
                     case 4:
                         String deckName = menu.getString("Enter a name for the deck");
                         player.getMadeDecks().add(new Deck(newDeck, deckName));
-                        System.out.println(deckName);
                         editing = false;
                         break;
                 }
@@ -146,7 +150,7 @@ public class Game {
     }
 
     /**
-     *
+     *creates an appeal to the gods, hopefully you're in their favor (if you are you draw a card if you arent you lose 5 hp)
      * @param player
      */
     private void pray(Human player) {
@@ -163,7 +167,6 @@ public class Game {
             case 1:
                 menu.print("your prayers were unheard");
                 player.setHp(player.getHp() - 5);
-                checkWin(player);
                 break;
         }
 
@@ -191,23 +194,21 @@ public class Game {
      * Sets Game Up
      */
     private void initGame(Human player, Computer computer) {
-        boolean gameIsRunning = true, playerTurn = true, playerWin = false, computerWin = false;
+        boolean gameIsRunning = true, playerTurn = true, playerWin = false, computerWin = false, initialDraw = true;
         masterDeck.shuffle();
         resetPlayers(player,computer);
-        while (player.getHand().size() < 3) {
-            if (masterDeck.getDeck().isEmpty()) {
-                createCreatures();
-                masterDeck.shuffle();
+        while (player.getHand().size() < 3 && initialDraw) {
+            if (!player.getPlayerDeck().getDeck().isEmpty()) {
+                player.drawCard();
+            } else {
+                initialDraw = false;
             }
-            player.addCardToHand(masterDeck.drawCard());
         }
         while (gameIsRunning) {
-            if (masterDeck.getDeck().isEmpty()) {
-                createCreatures();
-                masterDeck.shuffle();
-            }
             if (playerTurn) {
-                player.addCardToHand(masterDeck.drawCard());
+                if(!player.getPlayerDeck().getDeck().isEmpty()) {
+                    player.drawCard();
+                }
                 player.setMana(player.getMana() + 1);
                 player.setCurrentMana(player.getMana());
                 takeTurn(player, computer);
@@ -215,7 +216,9 @@ public class Game {
                 playerWin = checkWin(computer);
                 playerTurn = false;
             } else {
-                computer.addCardToHand(masterDeck.drawCard());
+                if(!computer.getPlayerDeck().getDeck().isEmpty()) {
+                    computer.drawCard();
+                }
                 computer.setMana(computer.getMana() + 1);
                 computer.setCurrentMana(computer.getMana());
                 compTurn(computer);
@@ -237,7 +240,7 @@ public class Game {
     }
 
     /**
-     * creates all creatures and adds them to the deck
+     * god has created enemies to destroy you. (Creates the cards for the game)
      */
     private void createCreatures() {
         //Beast creatures.
@@ -363,7 +366,9 @@ public class Game {
     }
 
     /**
-     * player turn.
+     * well, if your hand dunt be empty then you get a menucitto of what you can doer. once you doer it doe'd (Turn logic)
+     * @param player
+     * @param computer
      */
     private void takeTurn(Human player, Computer computer) {
         boolean turn = true;
@@ -432,7 +437,7 @@ public class Game {
     }
 
     /**
-     * deals damage to cards/computer/player and removes un-live cards and checks for win
+     * deals damage to cards/computer/player and removes un-alive cards and checks for win
      *
      * @param turn
      */
@@ -458,7 +463,7 @@ public class Game {
     }
 
     /**
-     * lets player buy card packs using gold they've earned.
+     * lets player buy card packs using gold they've earned from the blood of their fallen foes.
      * @param player
      */
     private void cardShop(Human player) {
@@ -472,7 +477,7 @@ public class Game {
                         "2: Nah, I don't make strategies")) {
                     case 1:
                             player.setGold(player.getGold() - 1);
-                        for (int i = 0; i < 2; i++) {
+                        for (int i = 0; i < 3; i++) {
                             player.getOwnedCards().add(masterDeck.getDeck().get(random.nextInt(masterDeck.getDeck().size())).clone());
                             menu.print("You got: " + player.getOwnedCards().get(player.getOwnedCards().size() - 1).getName());
                         }
@@ -490,7 +495,9 @@ public class Game {
      * saves earned cards persistently
      * @param player
      */
-    private void save(Human player, File f
+    private void save(Human player) {
+        File file = new File("SaveData.txt");
+        try {
             FileOutputStream outputStream = new FileOutputStream(file);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
             objectOutputStream.writeObject(player);

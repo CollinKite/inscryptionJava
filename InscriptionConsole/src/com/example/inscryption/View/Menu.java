@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
+    //Properties
     private Scanner getAnswerInt = new Scanner(System.in);
     private BufferedReader bread = new BufferedReader(new InputStreamReader(System.in));
 
@@ -43,10 +44,6 @@ while (!getAnswerInt.hasNext("[12345]")){
 int answer = getAnswerInt.nextInt();
 return answer;
     }
-    public void viewCredits(){
-
-    }
-
 
     /**
      *  turn menu, also in a box, nice right
@@ -73,7 +70,7 @@ return answer;
     }
 
     /**
-     * Method
+     * Get integer from user with set lower and upper bounds
      * @param min lower bounds to validate
      * @param max upper bounds to validate
      * @param prompt asks user to input number
@@ -126,7 +123,6 @@ return answer;
      * @param cards
      */
     public void printCards(ArrayList<Card> cards) {
-        //Prints cards next to each other line by line.
 
         String CardTop = "";
         String firstLine = "";
@@ -163,6 +159,7 @@ return answer;
         System.out.println(CardTop + firstLine + blankSpace + specialLine + secondLine + thirdLine + cardBottom);
     }
 
+    //Menu To Modify Player Decks
     public int deckEditor() {
         String cardTop =    "┌──────────┐\n";
         String firstLine =  "│1: Add    │\n";
@@ -180,6 +177,7 @@ return answer;
         return getAnswerInt.nextInt();
     }
 
+    //Gets String from user validates it isn't empty and returns it
     public String getString(String prompt) {
         if(prompt != null) {
             System.out.println(prompt);
@@ -193,14 +191,16 @@ return answer;
 
     }
 
+    //Asks user to pick one of their Custom Decks and validates their input is valid, and returns selection.
     public int chooseDeck(ArrayList<Deck> decks) {
         for (int i = 0; i < decks.size(); i++) {
             System.out.println(i +": " + decks.get(i).getName());
         }
 
-        return getInt(0, decks.size(), "Which deck would you like to use?");
+        return getInt(0, decks.size() - 1, "Which deck would you like to use?");
     }
 
+    //Print with custom prompt
     public void print(String prompt) {
         System.out.println(prompt);
     }

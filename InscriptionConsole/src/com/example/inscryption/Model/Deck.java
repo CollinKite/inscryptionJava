@@ -1,15 +1,19 @@
 package com.example.inscryption.Model;
 
+
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Deck implements Cloneable{
+public class Deck implements Cloneable, Serializable {
+    //Properties
     private ArrayList<Card> deck = new ArrayList<>();
     private Random random = new Random();
     private String name;
 
+    //Constructors
     public Deck() {}
 
     public Deck(ArrayList<Card> deck, String name) {
@@ -17,10 +21,12 @@ public class Deck implements Cloneable{
         setName(name);
     }
 
+    //Get Deck
     public ArrayList<Card> getDeck() {
         return deck;
     }
 
+    //Add and Remove Cards to Deck
     public void addCard(Card card) {
         deck.add(card);
     }
@@ -29,6 +35,7 @@ public class Deck implements Cloneable{
         deck.remove(card);
     }
 
+    //Returns Selected Card from deck and removes it
     public Card drawCard() {
         if(!deck.isEmpty()) {
             Card card = deck.get(deck.size() - 1);
@@ -39,6 +46,7 @@ public class Deck implements Cloneable{
         }
     }
 
+    //Randomizes Order of Cards in ArrayList
     public void shuffle() {
         ArrayList<Card> shuffledDeck = new ArrayList<>();
         while(!deck.isEmpty()) {
@@ -49,6 +57,7 @@ public class Deck implements Cloneable{
         deck = shuffledDeck;
     }
 
+    //Returns Clone of Deck
     public Deck clone() {
         try {
             return (Deck)super.clone();
@@ -58,6 +67,7 @@ public class Deck implements Cloneable{
         return null;
     }
 
+    //Getters and Setters
     public String getName() {
         return this.name;
     }

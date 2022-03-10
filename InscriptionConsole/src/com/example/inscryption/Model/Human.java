@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class Human extends Player implements Serializable {
 
+    //Constructors
     public Human(int hp, int mana, String name) {
         super(hp, mana, name, true);
     }
@@ -13,12 +14,13 @@ public class Human extends Player implements Serializable {
         setHuman(true);
     }
 
+    //Properties
     private ArrayList<Deck> madeDecks = new ArrayList<>(); //H
     private int gold = 0; //H
     private ArrayList<Card> ownedCards = new ArrayList<>(); //H
 
 
-
+    //Getters and up-Setters >:(
     public int getGold() {
         return gold;
     }

@@ -6,22 +6,27 @@ public class Board {
     private ArrayList<Card> playerBoard = new ArrayList<>();
     private ArrayList<Card> computerBoard = new ArrayList<>();
 
+    //Returns Player Cards
     public ArrayList<Card> getPlayerBoard() {
         return playerBoard;
     }
 
+    //Returns Computer Cards
     public ArrayList<Card> getComputerBoard() {
         return computerBoard;
     }
 
+    //Add Human Player Cards to board
     public void addToPlayerBoard(Card card) {
         playerBoard.add(card);
     }
 
+    //Add Computer Cards to board
     public void addToComputerBoard(Card card) {
         computerBoard.add(card);
     }
 
+    //Find's Cards with health <= 0 and removes them
     public void removeDeadCards() {
         ArrayList<Integer> indexes = new ArrayList<>();
         for (int i = 0; i < playerBoard.size(); i++) {

@@ -1,6 +1,10 @@
 package com.example.inscryption.Model;
 
-public class Card implements Cloneable{
+
+import java.io.Serializable;
+
+public class Card implements Cloneable, Serializable {
+    //Properties
     private int cost;
     private String type, name;
     private int atk, hp;
@@ -27,6 +31,8 @@ public class Card implements Cloneable{
         setSpecial1(special1);
         setSpecial2(special2);
     }
+
+    //Getters and Setters
 
     public void setHp(int hp) {
         this.hp = hp;
@@ -80,6 +86,7 @@ public class Card implements Cloneable{
 
     public void setName(String name) { this.name = name; }
 
+    //Creates a Copy of the current card and returns it
     public Card clone() {
         try {
             return (Card)super.clone();
