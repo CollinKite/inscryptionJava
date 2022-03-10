@@ -1,27 +1,32 @@
 package com.example.inscryption.View;
 
 import com.example.inscryption.Model.Card;
+import com.example.inscryption.Model.Deck;
 import com.example.inscryption.Model.Player;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
-    Scanner getAnswerInt = new Scanner(System.in);
-    int answer;
+    private Scanner getAnswerInt = new Scanner(System.in);
+    private BufferedReader bread = new BufferedReader(new InputStreamReader(System.in));
+
 
     //Creates menu in a box
     public int startMenu() {
-        List cardPos = new ArrayList<>();
-        String cardTop =    "◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆┌───────────┐◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆";
-        String firstLine =  "◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇│1: New     │◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇";
-        String blankSpace = "◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆│2: Credits │◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆";
-        String secondLine = "◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇│3: Shop    │◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇";
-        String specialLine ="◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆│4: MakeDeck│◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆";
-        String thirdLine =  "◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇│5: Exit    │◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇";
-        String cardBottom = "◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆└───────────┘◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆";
-//≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻≺≻ ◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆
+        List cardPos = new ArrayList<>(); //◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆  ◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇
+        String cardTop =    "◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆╔═══════════╗◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆";
+        String firstLine =  "◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇│1: New     │◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇";
+        String blankSpace = "◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆│2: Credits │◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆";
+        String secondLine = "◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇│3: Shop    │◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇";
+        String specialLine ="◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆│4: MakeDeck│◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆";
+        String thirdLine =  "◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇│5: Exit    │◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇";
+        String cardBottom = "◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆╚═══════════╝◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆";
+
         cardPos.add(cardTop);
         cardPos.add(firstLine);
         cardPos.add(blankSpace);
@@ -31,11 +36,11 @@ public class Menu {
         cardPos.add(cardBottom);
 
         cardPos.forEach(System.out::println);
-while (!getAnswerInt.hasNext("[1234]")){
+while (!getAnswerInt.hasNext("[12345]")){
     System.out.println("Enter a valid option");
     getAnswerInt.next();
 }
-answer = getAnswerInt.nextInt();
+int answer = getAnswerInt.nextInt();
 return answer;
     }
     public void viewCredits(){
@@ -49,13 +54,13 @@ return answer;
      * @param computer
      * @return
      */
-    public int turnMenu(Player player, Player computer) {
-        String cardTop =    "┌──────────┐\n";
-        String firstLine =  "│1: Play   │  Your HP: " +player.getHp() + "\n";
-        String blankSpace = "│2: Pray   │  Opponent HP: " + computer.getHp() + "\n";
-        String secondLine = "│3: Rules  │  Mana: " + getManaString(player) + "\n";
-        String thirdLine =  "│4: End    │\n";
-        String cardBottom = "└──────────┘\n";
+    public int turnMenu(Player player, Player computer, Deck deck) {
+        String cardTop =    "╔══════════╗\n";
+        String firstLine =  "║1: Play   ║  Your HP: " +player.getHp() + "\n";
+        String blankSpace = "║2: Pray   ║  Opponent HP: " + computer.getHp() + "\n";
+        String secondLine = "║3: Rules  ║  Mana: " + getManaString(player) + "\n";
+        String thirdLine =  "║4: End    ║\n";
+        String cardBottom = "╚══════════╝\n";
 
         System.out.println(cardTop + firstLine + blankSpace + secondLine + thirdLine + cardBottom);
         while (!getAnswerInt.hasNext("[1234]")){
@@ -88,13 +93,13 @@ return answer;
     public void displayRules(){
         //╔ ╗ ╚ ╝ ║ ═
         String line1 = "╔═════════════════════════════════════════════╗\n";
-        String line2 = "║ At the start of the turn, player draws card ║\n";
-        String line3 = "║ Playing a card costs mana                   ║\n";
-        String line4 = "║ Mana regenerates increasing by one /turn    ║\n";
-        String line5 = "║ Cards attack the opposing enemy's card      ║\n";
-        String line6 = "║ if no opposing card, player deals damage    ║\n";
+        String line2 = "║◇ At the start of the turn, player draws card║\n";
+        String line3 = "║◇ Playing a card costs mana                  ║\n";
+        String line4 = "║◇ Mana regenerates increasing by one /turn   ║\n";
+        String line5 = "║◇ Cards attack the opposing enemy's card     ║\n";
+        String line6 = "║◇ if no opposing card, player deals damage   ║\n";
         String line7 = "║          directly to enemy's health         ║\n";
-        String line8 = "║ Player wins when enemy health is 0          ║\n";
+        String line8 = "║◇ Player wins when enemy health is 0         ║\n";
         String line9 = "║                                             ║\n";
         String line10= "║                                             ║\n";
         String line11= "║                                             ║\n";
@@ -136,7 +141,7 @@ return answer;
             firstLine += "│" + cards.get(i).getName();
             blankSpace += "│          │";
             specialLine += "│" + cards.get(i).getSpecial1() + "   " + cards.get(i).getSpecial2() + " │";
-            secondLine += "│" + cards.get(i).getAtk() + "/" + cards.get(i).getHp() + "       │";
+            secondLine += "│" + "A:" + cards.get(i).getAtk() + "/" + "H:" + cards.get(i).getHp() + "   │";
             thirdLine += "│" + cards.get(i).getCost() + "         │";
             cardBottom += "└──────────┘";
 
@@ -179,12 +184,25 @@ return answer;
         if(prompt != null) {
             System.out.println(prompt);
         }
-        while(!getAnswerInt.hasNextLine()) {
-            System.out.println(prompt);
-            getAnswerInt.next();
+        try {
+            return bread.readLine();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+        return "";
+
+    }
+
+    public int chooseDeck(ArrayList<Deck> decks) {
+        for (int i = 0; i < decks.size(); i++) {
+            System.out.println(i +": " + decks.get(i).getName());
         }
 
-        return getAnswerInt.nextLine();
+        return getInt(0, decks.size(), "Which deck would you like to use?");
+    }
+
+    public void print(String prompt) {
+        System.out.println(prompt);
     }
 
 }

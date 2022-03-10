@@ -12,8 +12,9 @@ public class Deck implements Cloneable{
 
     public Deck() {}
 
-    public Deck(ArrayList<Card> deck, S) {
+    public Deck(ArrayList<Card> deck, String name) {
         this.deck = deck;
+        setName(name);
     }
 
     public ArrayList<Card> getDeck() {
@@ -58,7 +59,7 @@ public class Deck implements Cloneable{
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {

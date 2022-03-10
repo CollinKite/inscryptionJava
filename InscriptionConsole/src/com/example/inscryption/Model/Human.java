@@ -1,14 +1,17 @@
 package com.example.inscryption.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Human extends Player {
+public class Human extends Player implements Serializable {
 
-    public Human(int hp, int mana, String name, boolean isHuman) {
-        super(hp, mana, name, isHuman);
+    public Human(int hp, int mana, String name) {
+        super(hp, mana, name, true);
     }
 
-    public Human(){}
+    public Human(){
+        setHuman(true);
+    }
 
     private ArrayList<Deck> madeDecks = new ArrayList<>(); //H
     private int gold = 0; //H

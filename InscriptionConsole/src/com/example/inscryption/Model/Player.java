@@ -1,9 +1,10 @@
 package com.example.inscryption.Model;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class Player {
+public abstract class Player implements Serializable {
     private ArrayList<Card> hand = new ArrayList<>();
     private int hp = 20, mana, currentMana;
     private String name;

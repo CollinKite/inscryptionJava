@@ -5,7 +5,6 @@ import com.example.inscryption.View.Menu;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class Game {
@@ -13,10 +12,30 @@ public class Game {
     private Deck masterDeck = new Deck();
     private Board board = new Board();
     private Random random = new Random();
-    private Human player = new Human();
 
-    private Human setUpHuman(File file){
-        if(file.b)
+    private Human setUpHuman(){
+        File file = new File("SaveData.txt");
+        try {
+            if(file.exists()){
+
+            } // Try to create new file, if it fails, file already exists, and we need to read the data from it.
+            else{
+                menu.print("Found Player Save!");
+                if(file.length() > 1){
+                    FileInputStream fis = new FileInputStream(file);
+                    ObjectInputStream ois = new ObjectInputStream(fis);
+                    return (Human)ois.readObject();
+                }
+                else {
+                    menu.print("Player Save has No Data ");
+                }
+            }
+        }
+        catch (Exception e){
+            menu.print("Save File Corrupted, Please Clear or delete the SaveData.txt file");
+        }
+        Human player = new Human();
+        return player;
     }
 
     /**
@@ -24,20 +43,19 @@ public class Game {
      */
     public void start(){
         boolean gaming = true;
+        createCreatures();
+        Human player = setUpHuman();
+        Computer computer = createComputer();
+        player.setGold(1);
         while (gaming) {
-            if (masterDeck.getDeck().isEmpty()) {
-                createCreatures();
-            }
             board = new Board();
-            Human player = setUpHuman();
-            Computer computer = createComputer();
-            player.getOwnedCards().add(masterDeck.drawCard());
             switch (menu.startMenu()) {
                 case 1:
+                    chooseDeck(player);
                     initGame(player, computer);
                     break;
                 case 2:
-                    System.out.println("It is a period of civil war. Rebel spaceships, striking from a hidden base, have won their first victory against the evil Galactic Empire. During the battle, Rebel spies managed to steal secret plans to the Empire’s ultimate weapon, the DEATH STAR, an armoured space station with enough power to destroy an entire planet. \n" +
+                    menu.print("It is a period of civil war. Rebel spaceships, striking from a hidden base, have won their first victory against the evil Galactic Empire. During the battle, Rebel spies managed to steal secret plans to the Empire’s ultimate weapon, the DEATH STAR, an armoured space station with enough power to destroy an entire planet. \n" +
                             "\n" +
                             "Pursued by the Empire’s sinister agents, Princess Leia races home aboard her starship, custodian of the stolen plans that can save her people and restore freedom to the galaxy….");
                     break;
@@ -48,14 +66,30 @@ public class Game {
                     makeDeck(player);
                     break;
                 case 5:
-                    save();
-                    System.out.println("Exit successful, this time...");
+                    save(player);
+                    menu.print("Exit successful, this time...");
                     gaming = false;
                     break;
             }
         }
     }
 
+    /**
+     * Checks if Custom Decks exist
+     * @param player
+     */
+    private void chooseDeck(Human player) {
+        if(player.getMadeDecks().isEmpty()) {
+            player.setPlayerDeck(masterDeck.clone());
+        } else {
+            player.setPlayerDeck(player.getMadeDecks().get(menu.chooseDeck(player.getMadeDecks())));
+        }
+    }
+
+    /**
+     * Creates and returns Computer Player
+     * @return
+     */
     private Computer createComputer() {
         Computer computer = new Computer();
         computer.setPlayerDeck(masterDeck.clone());
@@ -66,6 +100,10 @@ public class Game {
         return computer;
     }
 
+    /**
+     * Allows player to take in cards purchased from shop and create custom deck of purchased cards
+     * @param player
+     */
     private void makeDeck(Human player) {
         ArrayList<Card> newDeck = new ArrayList<>();
         if (!player.getOwnedCards().isEmpty()) {
@@ -79,7 +117,7 @@ public class Game {
                         for (int i = 0; i < player.getOwnedCards().size(); i++) {
                             numbers += i + "         ";
                         }
-                        System.out.println(numbers);
+                        menu.print(numbers);
                         newDeck.add(player.getOwnedCards().get(menu.getInt(0, player.getOwnedCards().size(), "Which card would you like to add?")).clone());
                         break;
                     case 2:
@@ -88,7 +126,7 @@ public class Game {
                         for (int i = 0; i < newDeck.size(); i++) {
                             numbers += i + "         ";
                         }
-                        System.out.println(numbers);
+                        menu.print(numbers);
                         newDeck.remove(menu.getInt(0, newDeck.size(), "Which card would you like to remove?"));
                         break;
                     case 3:
@@ -97,21 +135,25 @@ public class Game {
                     case 4:
                         String deckName = menu.getString("Enter a name for the deck");
                         player.getMadeDecks().add(new Deck(newDeck, deckName));
+                        System.out.println(deckName);
                         editing = false;
                         break;
                 }
             }
         } else {
-            System.out.println("You don't own any cards to make a deck");
+            menu.print("You don't own any cards to make a deck");
         }
     }
 
-
+    /**
+     *
+     * @param player
+     */
     private void pray(Human player) {
         int answer = random.nextInt(2);
         switch (answer) {
             case 0:
-                System.out.println("your prayers have been answered");
+                menu.print("your prayers have been answered");
                 if (masterDeck.getDeck().isEmpty()) {
                     createCreatures();
                     masterDeck.shuffle();
@@ -119,7 +161,7 @@ public class Game {
                 player.addCardToHand(masterDeck.drawCard());
                 break;
             case 1:
-                System.out.println("your prayers were unheard");
+                menu.print("your prayers were unheard");
                 player.setHp(player.getHp() - 5);
                 checkWin(player);
                 break;
@@ -128,11 +170,30 @@ public class Game {
     }
 
     /**
+     * Resets Stats after a game is completed
+     * @param player players that get passed through to get their health and mana reset for next game
+     * @param computer
+     */
+
+    private void resetPlayers(Human player, Computer computer) {
+        player.setHp(20);
+        computer.setHp(20);
+        player.setHand(new ArrayList<Card>());
+        computer.setHand(new ArrayList<Card>());
+        player.setMana(0);
+        computer.setMana(0);
+        player.setCurrentMana(0);
+        computer.setCurrentMana(0);
+        computer.setPlayerDeck(masterDeck.clone());
+    }
+
+    /**
      * Sets Game Up
      */
     private void initGame(Human player, Computer computer) {
         boolean gameIsRunning = true, playerTurn = true, playerWin = false, computerWin = false;
         masterDeck.shuffle();
+        resetPlayers(player,computer);
         while (player.getHand().size() < 3) {
             if (masterDeck.getDeck().isEmpty()) {
                 createCreatures();
@@ -166,17 +227,19 @@ public class Game {
         }
         if (playerWin) {
             //win
-            System.out.println("You don' defeatified your badguy!!");
+            menu.print("You don' defeatified your badguy!!");
+            menu.print("You got 1 shmeckle(goldboi for bying good shtuff)");
+            player.setGold(player.getGold() + 1);
         } else {
             //loss
-            System.out.println("Welcum to dead, you did great at doing bad!!");
+            menu.print("WelcOomeE to dead(un-life), you did great at doing bad!!");
         }
     }
 
     /**
      * creates all creatures and adds them to the deck
      */
-    public void createCreatures() {
+    private void createCreatures() {
         //Beast creatures.
         Card goblin = new Card(1, "Beast", "Goblin", 2, 1, "   ", "   ");
         Card HUNYBUNZ = new Card(4, "Beast", "Hunter", 0, 6, "   ", "   ");
@@ -307,7 +370,7 @@ public class Game {
         while (!player.getHand().isEmpty() && turn) {
             printBoard();
             menu.printCards(player.getHand());
-            switch (menu.turnMenu(player, computer)) {
+            switch (menu.turnMenu(player, computer,player.getPlayerDeck())) {
                 case 1:
                     playCard(player, menu.getInt(1, player.getHand().size(), "Pick a card, any card!") - 1);
                     break;
@@ -341,7 +404,7 @@ public class Game {
             player.removeCardFromHand(player.getHand().get(cardToPlay));
         } else {
             if (player.isHuman()) {
-                System.out.println("Not enough Manas in your pockets");
+                menu.print("Not enough Manas in your pockets");
             }
         }
     }
@@ -394,52 +457,46 @@ public class Game {
         board.removeDeadCards();
     }
 
+    /**
+     * lets player buy card packs using gold they've earned.
+     * @param player
+     */
     private void cardShop(Human player) {
-        int answer;
-        if(player.getGold() == 0) {
-            System.out.println("You dont have any gold");
-        }
-        while (player.getGold() > 0) {
+        if (player.getGold() == 0) {
+            menu.print("You dont have any gold");
+        } else {
+            while (player.getGold() > 0) {
+                switch (menu.getInt(1, 2, "Oh hello... " +
+                        "Would you like to buy a card pack? \n " +
+                        "1: Duh! my points expire! \n " +
+                        "2: Nah, I don't make strategies")) {
+                    case 1:
+                            player.setGold(player.getGold() - 1);
+                        for (int i = 0; i < 2; i++) {
+                            player.getOwnedCards().add(masterDeck.getDeck().get(random.nextInt(masterDeck.getDeck().size())).clone());
+                            menu.print("You got: " + player.getOwnedCards().get(player.getOwnedCards().size() - 1).getName());
+                        }
+                        break;
+                    case 2:
+                        start();
+                        break;
 
-            for (int i = 0; i < 2; i++) {
-                player.getOwnedCards().add(masterDeck.getDeck().get(random.nextInt(masterDeck.getDeck().size())).clone());
-                System.out.println("You got: " + player.getOwnedCards().get(player.getOwnedCards().size()));
+                }
             }
         }
     }
 
-    private void initializeFile(){
-        try {
-
-            if(file.createNewFile()){} // Try to create new file, if it fails, file already exists, and we need to read the data from it.
-            else{
-                view.fileFound();
-                if(journalEntries.length() > 1){
-                    FileInputStream fis = new FileInputStream("journal.txt");
-                    ObjectInputStream ois = new ObjectInputStream(fis);
-                    journal = (ArrayList<JournalEntry>)ois.readObject();
-                }
-                else {
-                    view.emptyFile();
-                }
-            }
-            filesSetup = true;
-        }
-        catch (Exception e){
-            view.fileError();
-            filesSetup = false;
-        }
-    }
-
-    private void save() {
-        try {
-            File file = new File("SaveData.txt");
+    /**
+     * saves earned cards persistently
+     * @param player
+     */
+    private void save(Human player, File f
             FileOutputStream outputStream = new FileOutputStream(file);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
             objectOutputStream.writeObject(player);
             outputStream.close();
         } catch (IOException e) {
-            System.out.println("Tried to save to a file that doesnt exist");
+            menu.print("Tried to save to a file that doesnt exist");
         }
     }
 }
