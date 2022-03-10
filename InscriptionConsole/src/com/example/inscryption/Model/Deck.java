@@ -8,10 +8,11 @@ import java.util.Random;
 public class Deck implements Cloneable{
     private ArrayList<Card> deck = new ArrayList<>();
     private Random random = new Random();
+    private String name;
 
     public Deck() {}
 
-    public Deck(ArrayList<Card> deck) {
+    public Deck(ArrayList<Card> deck, S) {
         this.deck = deck;
     }
 
@@ -54,5 +55,13 @@ public class Deck implements Cloneable{
             System.out.println(e);
         }
         return null;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

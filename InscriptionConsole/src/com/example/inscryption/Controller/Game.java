@@ -14,7 +14,6 @@ public class Game {
     private Board board = new Board();
     private Random random = new Random();
     private Human player = new Human();
-    private Computer computer = new Computer();
 
     private Human setUpHuman(File file){
         if(file.b)
@@ -30,12 +29,12 @@ public class Game {
                 createCreatures();
             }
             board = new Board();
-            player.setHuman(true);
-            computer.setHuman(false);
+            Human player = setUpHuman();
+            Computer computer = createComputer();
             player.getOwnedCards().add(masterDeck.drawCard());
             switch (menu.startMenu()) {
                 case 1:
-                    initGame();
+                    initGame(player, computer);
                     break;
                 case 2:
                     System.out.println("It is a period of civil war. Rebel spaceships, striking from a hidden base, have won their first victory against the evil Galactic Empire. During the battle, Rebel spies managed to steal secret plans to the Empire’s ultimate weapon, the DEATH STAR, an armoured space station with enough power to destroy an entire planet. \n" +
@@ -55,6 +54,16 @@ public class Game {
                     break;
             }
         }
+    }
+
+    private Computer createComputer() {
+        Computer computer = new Computer();
+        computer.setPlayerDeck(masterDeck.clone());
+        computer.setHuman(false);
+        for (int i = 0; i < 2; i++) {
+            computer.drawCard();
+        }
+        return computer;
     }
 
     private void makeDeck(Human player) {
@@ -86,7 +95,8 @@ public class Game {
                         menu.printCards(newDeck);
                         break;
                     case 4:
-                        player.getMadeDecks().add(new Deck(newDeck));
+                        String deckName = menu.getString("Enter a name for the deck");
+                        player.getMadeDecks().add(new Deck(newDeck, deckName));
                         editing = false;
                         break;
                 }
@@ -386,22 +396,15 @@ public class Game {
 
     private void cardShop(Human player) {
         int answer;
-        List cardPack = new ArrayList<>();
         if(player.getGold() == 0) {
             System.out.println("You dont have any gold");
         }
         while (player.getGold() > 0) {
 
             for (int i = 0; i < 2; i++) {
-                System.out.println(i + ": " + masterDeck.getDeck().get(random.nextInt(masterDeck.getDeck().size())).clone().getName());
+                player.getOwnedCards().add(masterDeck.getDeck().get(random.nextInt(masterDeck.getDeck().size())).clone());
+                System.out.println("You got: " + player.getOwnedCards().get(player.getOwnedCards().size()));
             }
-            answer = menu.getInt(0, masterDeck.getDeck().size(), "Make a selection");
-            for (int i = 0; i < masterDeck.getDeck().size(); i++) {
-                if (masterDeck.getDeck().get(i).equals(answer)) {
-                    player.addCardToHand(masterDeck.getDeck().get(i));
-                }
-            }
-
         }
     }
 
@@ -419,8 +422,6 @@ public class Game {
                 else {
                     view.emptyFile();
                 }
-
-
             }
             filesSetup = true;
         }
