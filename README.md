@@ -1,7 +1,8 @@
 ![in Game Menu](imgs/Game.png)
 # inscryptionJava
 Java Console based version of Card Game Inscryption
-Build for Final Project in Java OOP Class
+Group Final Project in Java OOP Class
+ 
 
 ![Main Menu](imgs/Menu.png)
 ## OOP Concepts Used
@@ -13,3 +14,7 @@ Build for Final Project in Java OOP Class
 - Interfaces
 - Saving and Reading from a file
 
+### Authors
+- [Collin Kite](https://github.com/CollinKite)
+- [Platte Clark](https://github.com/PlatteClark)
+- [Ryan Larson](https://github.com/AfricanRhino132)
