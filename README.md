@@ -1,5 +1,5 @@
 # inscryptionJava
-Java based version of Card Game Inscryption
+Java Console based version of Card Game Inscryption
 Build for Final Project in Java OOP Class
 
 ## OOP Concepts Used
